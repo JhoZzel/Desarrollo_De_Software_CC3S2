@@ -9,7 +9,7 @@
 Empezamos abriendo nuestro terminal. Y ejecutaremos la siguiente línea de comando 
 ``curl 'http://randomword.saasbook.info'``. Nos muestra lo siguiente:
 ```bash
-[06:20 PM]-[jhozzel@l3tsplay-ASUS]-[~/Desktop/test]-
+[06:20 AM]-[jhozzel@l3tsplay-ASUS]-[~/Desktop/test]-
 $ curl 'http://randomword.saasbook.info'
 <!DOCTYPE html>
 <html lang="en">
@@ -30,15 +30,16 @@ $ curl 'http://randomword.saasbook.info'
 Ahora bien, vamos a guardar la salida del comando anterior en el archivo `a.html` 
 
 ```bash
-[06:20 PM]-[jhozzel@l3tsplay-ASUS]-[~/Desktop/test]-
+[06:20 AM]-[jhozzel@l3tsplay-ASUS]-[~/Desktop/test]-
 $ curl 'http://randomword.saasbook.info' > a.html
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100   482  100   482    0     0   1123      0 --:--:-- --:--:-- --:--:--  1126
 
 ```
-  
-***
+
+## Request and Response
+
 **Pregunta:**¿Cuáles son las dos diferencias principales que has visto anteriormente y lo que ves en un navegador web 'normal'? ¿Qué explica estas diferencias?
 ***
 Vamos a abrir primero la página web mediante la URL original y luego abramos el archivo `a.html` que acabamos de crear.
@@ -56,20 +57,20 @@ Observamos que nuestro archivo solo muestra la pagina en texto plano, asimismo n
 Abriremos un nuevo shell con el fin de hacernos pasar como un **Servidor Web** que escuchará el puerto 8081. Usaremos el comando: `nc -l 8081`
 
 ```bash
-[06:49 PM]-[jhozzel@l3tsplay-ASUS]-[~]-
+[06:49 AM]-[jhozzel@l3tsplay-ASUS]-[~]-
 $ nc -l 8081
 |
 ```
 Ahora nuestro servidor esta a la espera que el cliente haga alguna interacción. Para poder acceder a este servidor usaremos nuevamente el `curl`, pero esta vez debido a que se trata de mi máquina local tendré enviarle la **ip local** de mi computadora que está representada mediante la URL: `http://localhost:8081`.
 
 ```bash
-[06:26 PM]-[jhozzel@l3tsplay-ASUS]-[~/Desktop/test]-
+[06:26 AM]-[jhozzel@l3tsplay-ASUS]-[~/Desktop/test]-
 $ curl 'http://localhost:8081'
 |
 ```
 Volvemos a la terminal anterior y vemos que nuestro servidor ha emitido el siguiente mensaje:
 ```bash
-[06:49 PM]-[jhozzel@l3tsplay-ASUS]-[~]-
+[06:49 AM]-[jhozzel@l3tsplay-ASUS]-[~]-
 $ nc -l 8081
 GET / HTTP/1.1
 Host: localhost:8081
@@ -131,12 +132,14 @@ Por supuesto, se trata del `Content-Type`, este nos indica el tipo de formato qu
 ```
 Content-Type: text/html;charset=utf-8
 ```
-***
+
+## ¿Qué sucede cuando falla un HTTP request?
+
 **Pregunta:** ¿Cuál sería el código de respuesta del servidor si intentaras buscar una URL inexistente en el sitio generador de palabras aleatorias? Pruéba esto utilizando el procedimiento anterior.
 ***
 Supongamos que quisieramos acceder a la siguiente URL: `http://randomword.saasbook.info/anything` que claramente no existe, volvamos a usar el comando `curl -i [URL]`.
 ```bash
-[07:11 PM]-[jhozzel@l3tsplay-ASUS]-[~/Desktop/test]-
+[07:11 AM]-[jhozzel@l3tsplay-ASUS]-[~/Desktop/test]-
 $ curl -i 'http://randomword.saasbook.info/anything'
 HTTP/1.1 404 Not Found 
 Connection: keep-alive
@@ -170,7 +173,9 @@ permanentemente.
 
 Respecto a lo último es importante resaltar que los encabezados 4xx son errores por parte del cliente, y los 5xx por parte del servidor.
 
-***  
+
+## ¿Qué es un cuerpo de Request?
+
 **Pregunta:** Cuando se envía un formulario HTML, se genera una solicitud HTTP `POST` desde el navegador. Para llegar a tu servidor falso, ¿con qué URL deberías reemplazar `Url-servidor-falso` en el archivo anterior?
 ***
 En la misma carpeta de trabajo crearemos el archivo `test.html` con el contenido dado en la guía pero en el apartado de `action` colocaremos `http://127.0.0.1:8081/` ya que se necesita la dirección local de nuestro sistema.
@@ -204,7 +209,7 @@ Volvemos a abrir un shell para actuar como un servidor, que estará a la escucha
 Luego observamos que en la consola aparece lo siguiente:
 
 ```bash
-[07:59 PM]-[jhozzel@l3tsplay-ASUS]-[~]-
+[07:59 AM]-[jhozzel@l3tsplay-ASUS]-[~]-
 $ nc -l 8081
 POST / HTTP/1.1
 Host: 127.0.0.1:8081
@@ -279,7 +284,7 @@ Para que el navegador web genere una ruta que utilice PUT, PATH o DELETE general
 Primero probaremos la operación `GET/`, y luego usaremos la operación `GET/login` , asimismo notemos las diferencias de ambos outputs.
 
 ```bash
-[12:22 AM]-[jhozzel@l3tsplay-ASUS]-[~/Desktop/test]-
+[12:22 PM]-[jhozzel@l3tsplay-ASUS]-[~/Desktop/test]-
 $ curl -v "http://esaas-cookie-demo.herokuapp.com"
 *   Trying 3.229.186.102:80...
 * Connected to esaas-cookie-demo.herokuapp.com (3.229.186.102) port 80 (#0)
@@ -304,7 +309,7 @@ Logged in: false
 ```
 
 ```bash
-[12:22 AM]-[jhozzel@l3tsplay-ASUS]-[~/Desktop/test]-
+[12:22 PM]-[jhozzel@l3tsplay-ASUS]-[~/Desktop/test]-
 $ curl -v "http://esaas-cookie-demo.herokuapp.com/login"
 *   Trying 54.83.6.65:80...
 * Connected to esaas-cookie-demo.herokuapp.com (54.83.6.65) port 80 (#0)
@@ -342,7 +347,7 @@ Mientras que para el otro llega a mandar la operación `GET/login`
 
 Ahora bien lo que haremos para solucionar este problema, será almacenar los cookies relevantes que envía el servidor, para que sepa incluirlas en futuras solicitudes a ese servidor. Para ello ejecutaremos el siguiente comando:
 ```bash
-[12:25 AM]-[jhozzel@l3tsplay-ASUS]-[~/Desktop/test]-
+[12:25 PM]-[jhozzel@l3tsplay-ASUS]-[~/Desktop/test]-
 $ curl -i --cookie-jar cookies.txt http://esaas-cookie-demo.herokuapp.com/login
 HTTP/1.1 200 OK
 Connection: keep-alive
@@ -356,7 +361,7 @@ Via: 1.1 vegur
 
 Login cookie set
 
-[12:34 AM]-[jhozzel@l3tsplay-ASUS]-[~/Desktop/test]-
+[12:34 PM]-[jhozzel@l3tsplay-ASUS]-[~/Desktop/test]-
 $ ls
 a.html  cookies.txt  test.html
 ```
@@ -375,7 +380,7 @@ Observamos que el archivo cookies.txt fue creado exitosamente en nuestra carpeta
 Ahora bien lo que haremos finalmente será usar este archivo `cookie.txt` para el siguiente curl.
 
 ```bash
-[12:35 AM]-[jhozzel@l3tsplay-ASUS]-[~/Desktop/test]-
+[12:35 PM]-[jhozzel@l3tsplay-ASUS]-[~/Desktop/test]-
 $ curl -v -b cookies.txt http://esaas-cookie-demo.herokuapp.com/
 *   Trying 54.146.248.82:80...
 * Connected to esaas-cookie-demo.herokuapp.com (54.146.248.82) port 80 (#0)
