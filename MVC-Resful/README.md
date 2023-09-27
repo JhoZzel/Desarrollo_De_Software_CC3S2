@@ -9,7 +9,7 @@ Para empezar abriremos nuestro IDE de RubyMine y crearemos un nuevo proyecto baj
 [11:22 PM]-[jhozzel@l3tsplay-ASUS]-[~/.../MVC_Resful/sinatra-intro]-
 $ sudo bundle install
 [sudo] password for jhozzel: 
-Don't run Bundler as root. Installing your bundle as root will break this application for all non-root users on this machine.
+Don\'t run Bundler as root. Installing your bundle as root will break this application for all non-root users on this machine.
 Fetching gem metadata from https://rubygems.org/........
 Resolving dependencies...
 Fetching json 2.6.3
