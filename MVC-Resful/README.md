@@ -106,11 +106,11 @@ delete '/todos/:id' do
 end
 ```
 ## Parte 2
-> A continuación, creemos algunas rutas para que los usuarios puedan interactuar con la aplicación. Aquí hay una URL de ejemplo:
+**A continuación, creemos algunas rutas para que los usuarios puedan interactuar con la aplicación. Aquí hay una URL de ejemplo:**
 ```
 https://www.etsy.com/search?q=test#copy
 ```
-> Primero, especifica qué partes de la URL son componentes según la discusión sobre la forma de una URL. Consulta esta publicación de IBM que detalla los componentes de una URL.
+**Primero, especifica qué partes de la URL son componentes según la discusión sobre la forma de una URL. Consulta esta publicación de IBM que detalla los componentes de una URL.**
 
 
 
@@ -125,7 +125,7 @@ https://www.etsy.com/search?q=test#copy
 
 - `copy` : Fragmento que puede ser utilizado por el navegador para posicionar la vista en una sección específica del recurso.
 
-> En Sinatra, el enrutamiento y el controlador están acoplados, lo que facilita la declaración de rutas. Declaramos algunas rutas RESTful para que podamos ver una lista de tareas pendientes, crear una tarea pendiente, editar una tarea pendiente y eliminar una tarea pendiente. ¿Qué acciones RESTful deberíamos utilizar para estos?
+**En Sinatra, el enrutamiento y el controlador están acoplados, lo que facilita la declaración de rutas. Declaramos algunas rutas RESTful para que podamos ver una lista de tareas pendientes, crear una tarea pendiente, editar una tarea pendiente y eliminar una tarea pendiente. ¿Qué acciones RESTful deberíamos utilizar para estos?**
 
 Para las rutas RESTful que estamos definiendo, podemos emplear las siguientes operaciones:
 
@@ -135,7 +135,7 @@ Para las rutas RESTful que estamos definiendo, podemos emplear las siguientes op
 - **Eliminar**: La acción RESTful para suprimir una tarea pendiente es DELETE. Esto borra una tarea pendiente que ya existe.
 
 ## Parte 3
-> Dado que HTTP es un protocolo RESTful, cada solicitud debe ir seguida de una respuesta, por lo que debemos devolver una vista o redirigir a cada solicitud. Usaremos JSON para las respuestas, que es similar a lo que hacen muchas API. ¿Hacia dónde debería ir la respuesta?.
+**Dado que HTTP es un protocolo RESTful, cada solicitud debe ir seguida de una respuesta, por lo que debemos devolver una vista o redirigir a cada solicitud. Usaremos JSON para las respuestas, que es similar a lo que hacen muchas API. ¿Hacia dónde debería ir la respuesta?.**
 
 
 Cuando hablamos de una solicitud HTTP seguida de una respuesta, estamos describiendo el flujo de comunicación entre un cliente y un servidor a través del protocolo HTTP. En un contexto RESTful, esto implica que las operaciones que realiza el cliente (como obtener información, crear, actualizar o eliminar recursos) están asociadas con una respuesta del servidor.
