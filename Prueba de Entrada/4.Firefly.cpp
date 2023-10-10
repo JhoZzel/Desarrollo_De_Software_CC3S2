@@ -1,3 +1,8 @@
+/*
+	Problem: COCI '06 Regional #3 Firefly
+	Fuente: https://dmoj.ca/problem/crci06p3
+*/
+
 #include <bits/stdc++.h>
 #define fast_io ios_base::sync_with_stdio(false); cin.tie (NULL)
 #define all(x) x.begin(), x.end()

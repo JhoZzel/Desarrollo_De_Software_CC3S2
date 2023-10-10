@@ -1,3 +1,8 @@
+/*
+	Problem: COCI '10 Contest 1 #2 Profesor
+	Fuente: https://dmoj.ca/problem/coci10c1p2
+*/
+
 #include <bits/stdc++.h>
 #define fast_io ios_base::sync_with_stdio(false); cin.tie (NULL)
 #define F first

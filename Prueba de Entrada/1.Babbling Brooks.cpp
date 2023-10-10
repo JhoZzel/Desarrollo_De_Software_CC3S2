@@ -1,3 +1,9 @@
+/*
+	Problem: CCC '00 S2 - Babbling Brooks
+	Canadian Computing Competition: 2000 Stage 1, Junior #4, Senior #2
+	Fuente: https://dmoj.ca/problem/ccc00s2
+*/
+
 #include <bits/stdc++.h>
 #define fast_io ios_base::sync_with_stdio(false); cin.tie (NULL)
 using namespace std;

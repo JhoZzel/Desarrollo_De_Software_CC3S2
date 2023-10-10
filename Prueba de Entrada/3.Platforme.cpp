@@ -1,3 +1,8 @@
+/*
+	Problem: COCI '07 Regional #1 Platforme
+	Fuente: https://dmoj.ca/problem/crci07p1
+*/
+
 #include <bits/stdc++.h>
 #define fast_io ios_base::sync_with_stdio(false); cin.tie (NULL)
 using namespace std;
