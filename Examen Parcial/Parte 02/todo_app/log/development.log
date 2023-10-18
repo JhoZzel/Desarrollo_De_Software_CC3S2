@@ -1,0 +1,228 @@
+  [1m[35m (2.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2023-10-18 12:30:27.417332', '2023-10-18 12:30:27.417334') RETURNING "key"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateTodos (20231018122912)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "todos" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "description" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20231018122912') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for ::1 at 2023-10-18 07:30:45 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/jhozzel/.rbenv/versions/3.0.2/lib/ruby/gems/3.0.0/gems/railties-7.1.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/jhozzel/.rbenv/versions/3.0.2/lib/ruby/gems/3.0.0/gems/railties-7.1.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.7ms | Allocations: 576)
+Completed 200 OK in 22ms (Views: 6.9ms | ActiveRecord: 0.0ms | Allocations: 10090)
+
+
+Started GET "/" for ::1 at 2023-10-18 07:39:17 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/jhozzel/.rbenv/versions/3.0.2/lib/ruby/gems/3.0.0/gems/railties-7.1.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/jhozzel/.rbenv/versions/3.0.2/lib/ruby/gems/3.0.0/gems/railties-7.1.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.6ms | Allocations: 576)
+Completed 200 OK in 10ms (Views: 2.9ms | ActiveRecord: 0.0ms | Allocations: 7280)
+
+
+  [1m[36mTodo Load (0.2ms)[0m  [1m[34mSELECT "todos".* FROM "todos" /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTodo Create (0.4ms)[0m  [1m[32mINSERT INTO "todos" ("description", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["description", nil], ["created_at", "2023-10-18 12:43:51.180770"], ["updated_at", "2023-10-18 12:43:51.180770"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTodo Load (0.5ms)[0m  [1m[34mSELECT "todos".* FROM "todos" /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mTodo Load (0.4ms)[0m  [1m[34mSELECT "todos".* FROM "todos" /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTodo Create (1.9ms)[0m  [1m[32mINSERT INTO "todos" ("description", "created_at", "updated_at") VALUES (?, ?, ?) RETURNING "id"[0m  [["description", "Hello CC3S2- Kids"], ["created_at", "2023-10-18 12:45:14.127563"], ["updated_at", "2023-10-18 12:45:14.127563"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/" for ::1 at 2023-10-18 07:45:54 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/jhozzel/.rbenv/versions/3.0.2/lib/ruby/gems/3.0.0/gems/railties-7.1.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/jhozzel/.rbenv/versions/3.0.2/lib/ruby/gems/3.0.0/gems/railties-7.1.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 1.0ms | Allocations: 576)
+Completed 200 OK in 8ms (Views: 3.5ms | ActiveRecord: 0.0ms | Allocations: 7200)
+
+
+Started GET "/" for ::1 at 2023-10-18 07:45:55 -0500
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/jhozzel/.rbenv/versions/3.0.2/lib/ruby/gems/3.0.0/gems/railties-7.1.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/jhozzel/.rbenv/versions/3.0.2/lib/ruby/gems/3.0.0/gems/railties-7.1.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.2ms | Allocations: 23)
+Completed 200 OK in 2ms (Views: 1.5ms | ActiveRecord: 0.0ms | Allocations: 343)
+
+
+  [1m[36mTodo Load (0.3ms)[0m  [1m[34mSELECT "todos".* FROM "todos" /* loading for pp */ LIMIT ?[0m  [["LIMIT", 11]]
+Started GET "/" for ::1 at 2023-10-18 07:52:24 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/jhozzel/.rbenv/versions/3.0.2/lib/ruby/gems/3.0.0/gems/railties-7.1.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/jhozzel/.rbenv/versions/3.0.2/lib/ruby/gems/3.0.0/gems/railties-7.1.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.6ms | Allocations: 576)
+Completed 200 OK in 9ms (Views: 3.1ms | ActiveRecord: 0.0ms | Allocations: 7200)
+
+
+Started GET "/" for ::1 at 2023-10-18 07:54:25 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/jhozzel/.rbenv/versions/3.0.2/lib/ruby/gems/3.0.0/gems/railties-7.1.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/jhozzel/.rbenv/versions/3.0.2/lib/ruby/gems/3.0.0/gems/railties-7.1.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.6ms | Allocations: 576)
+Completed 200 OK in 8ms (Views: 2.9ms | ActiveRecord: 0.0ms | Allocations: 7197)
+
+
+Started GET "/" for ::1 at 2023-10-18 07:54:26 -0500
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/jhozzel/.rbenv/versions/3.0.2/lib/ruby/gems/3.0.0/gems/railties-7.1.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/jhozzel/.rbenv/versions/3.0.2/lib/ruby/gems/3.0.0/gems/railties-7.1.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.2ms | Allocations: 23)
+Completed 200 OK in 2ms (Views: 1.1ms | ActiveRecord: 0.0ms | Allocations: 343)
+
+
+Started GET "/hello" for ::1 at 2023-10-18 07:54:29 -0500
+  
+AbstractController::ActionNotFound (The action 'hello' could not be found for TodosController):
+  
+actionpack (7.1.1) lib/abstract_controller/base.rb:155:in `process'
+actionview (7.1.1) lib/action_view/rendering.rb:40:in `process'
+actionpack (7.1.1) lib/action_controller/metal.rb:227:in `dispatch'
+actionpack (7.1.1) lib/action_controller/metal.rb:309:in `dispatch'
+actionpack (7.1.1) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.1.1) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.1.1) lib/action_dispatch/journey/router.rb:51:in `block in serve'
+actionpack (7.1.1) lib/action_dispatch/journey/router.rb:131:in `block in find_routes'
+actionpack (7.1.1) lib/action_dispatch/journey/router.rb:124:in `each'
+actionpack (7.1.1) lib/action_dispatch/journey/router.rb:124:in `find_routes'
+actionpack (7.1.1) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.1.1) lib/action_dispatch/routing/route_set.rb:882:in `call'
+rack (3.0.8) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.0.8) lib/rack/etag.rb:29:in `call'
+rack (3.0.8) lib/rack/conditional_get.rb:31:in `call'
+rack (3.0.8) lib/rack/head.rb:15:in `call'
+actionpack (7.1.1) lib/action_dispatch/http/permissions_policy.rb:36:in `call'
+actionpack (7.1.1) lib/action_dispatch/http/content_security_policy.rb:33:in `call'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:272:in `context'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:266:in `call'
+actionpack (7.1.1) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+activerecord (7.1.1) lib/active_record/migration.rb:653:in `call'
+actionpack (7.1.1) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.1) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.1) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.1) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.1) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.1.1) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.1) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (7.1.1) lib/active_support/tagged_logging.rb:135:in `block in tagged'
+activesupport (7.1.1) lib/active_support/tagged_logging.rb:39:in `tagged'
+activesupport (7.1.1) lib/active_support/tagged_logging.rb:135:in `tagged'
+activesupport (7.1.1) lib/active_support/broadcast_logger.rb:232:in `method_missing'
+railties (7.1.1) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.1.1) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.1) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.0.8) lib/rack/method_override.rb:28:in `call'
+rack (3.0.8) lib/rack/runtime.rb:24:in `call'
+activesupport (7.1.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.1.1) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.1) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.1) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.1) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.0.8) lib/rack/sendfile.rb:114:in `call'
+actionpack (7.1.1) lib/action_dispatch/middleware/host_authorization.rb:141:in `call'
+railties (7.1.1) lib/rails/engine.rb:529:in `call'
+puma (6.4.0) lib/puma/configuration.rb:272:in `call'
+puma (6.4.0) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.0) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.0) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.0) lib/puma/server.rb:443:in `process_client'
+puma (6.4.0) lib/puma/server.rb:241:in `block in run'
+puma (6.4.0) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+Started GET "/" for ::1 at 2023-10-18 07:54:32 -0500
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/jhozzel/.rbenv/versions/3.0.2/lib/ruby/gems/3.0.0/gems/railties-7.1.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/jhozzel/.rbenv/versions/3.0.2/lib/ruby/gems/3.0.0/gems/railties-7.1.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.2ms | Allocations: 18)
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.0ms | Allocations: 315)
+
+
+Started GET "/" for ::1 at 2023-10-18 07:55:28 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/jhozzel/.rbenv/versions/3.0.2/lib/ruby/gems/3.0.0/gems/railties-7.1.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/jhozzel/.rbenv/versions/3.0.2/lib/ruby/gems/3.0.0/gems/railties-7.1.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.7ms | Allocations: 576)
+Completed 200 OK in 11ms (Views: 3.8ms | ActiveRecord: 0.0ms | Allocations: 7197)
+
+
+Started GET "/" for ::1 at 2023-10-18 07:55:28 -0500
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/jhozzel/.rbenv/versions/3.0.2/lib/ruby/gems/3.0.0/gems/railties-7.1.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/jhozzel/.rbenv/versions/3.0.2/lib/ruby/gems/3.0.0/gems/railties-7.1.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.2ms | Allocations: 23)
+Completed 200 OK in 2ms (Views: 1.0ms | ActiveRecord: 0.0ms | Allocations: 343)
+
+
+Started GET "/hello" for ::1 at 2023-10-18 07:55:44 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+AbstractController::ActionNotFound (The action 'hello' could not be found for TodosController):
+  
+actionpack (7.1.1) lib/abstract_controller/base.rb:155:in `process'
+actionview (7.1.1) lib/action_view/rendering.rb:40:in `process'
+actionpack (7.1.1) lib/action_controller/metal.rb:227:in `dispatch'
+actionpack (7.1.1) lib/action_controller/metal.rb:309:in `dispatch'
+actionpack (7.1.1) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.1.1) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.1.1) lib/action_dispatch/journey/router.rb:51:in `block in serve'
+actionpack (7.1.1) lib/action_dispatch/journey/router.rb:131:in `block in find_routes'
+actionpack (7.1.1) lib/action_dispatch/journey/router.rb:124:in `each'
+actionpack (7.1.1) lib/action_dispatch/journey/router.rb:124:in `find_routes'
+actionpack (7.1.1) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.1.1) lib/action_dispatch/routing/route_set.rb:882:in `call'
+rack (3.0.8) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.0.8) lib/rack/etag.rb:29:in `call'
+rack (3.0.8) lib/rack/conditional_get.rb:31:in `call'
+rack (3.0.8) lib/rack/head.rb:15:in `call'
+actionpack (7.1.1) lib/action_dispatch/http/permissions_policy.rb:36:in `call'
+actionpack (7.1.1) lib/action_dispatch/http/content_security_policy.rb:33:in `call'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:272:in `context'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:266:in `call'
+actionpack (7.1.1) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+activerecord (7.1.1) lib/active_record/migration.rb:653:in `call'
+actionpack (7.1.1) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.1) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.1) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.1) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.1) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.1.1) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.1) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (7.1.1) lib/active_support/tagged_logging.rb:135:in `block in tagged'
+activesupport (7.1.1) lib/active_support/tagged_logging.rb:39:in `tagged'
+activesupport (7.1.1) lib/active_support/tagged_logging.rb:135:in `tagged'
+activesupport (7.1.1) lib/active_support/broadcast_logger.rb:232:in `method_missing'
+railties (7.1.1) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.1.1) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.1) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.0.8) lib/rack/method_override.rb:28:in `call'
+rack (3.0.8) lib/rack/runtime.rb:24:in `call'
+activesupport (7.1.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.1.1) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.1) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.1) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.1) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.0.8) lib/rack/sendfile.rb:114:in `call'
+actionpack (7.1.1) lib/action_dispatch/middleware/host_authorization.rb:141:in `call'
+railties (7.1.1) lib/rails/engine.rb:529:in `call'
+puma (6.4.0) lib/puma/configuration.rb:272:in `call'
+puma (6.4.0) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.0) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.0) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.0) lib/puma/server.rb:443:in `process_client'
+puma (6.4.0) lib/puma/server.rb:241:in `block in run'
+puma (6.4.0) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
