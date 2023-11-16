@@ -109,7 +109,7 @@ class MoviesController < ApplicationController
 end
 ```
 
-Este código establece métodos para llevar a cabo las operaciones CRUD asociadas con las películas. Estos métodos se emplean en las vistas 'new', 'edit' y 'show'. Además, el método 'movie_params' actúa como una precaución de seguridad al filtrar los parámetros permitidos antes de asignarlos a un modelo. Esta medida es esencial para salvaguardar nuestra aplicación contra posibles ataques de asignación masiva. A continuación se muestra una breve descripción de la funcionalidad de cada método.
+Este código establece métodos para llevar a cabo las operaciones CRUD asociadas con las películas. Estos métodos se emplean en las vistas 'new', 'edit' y 'show'. Además, el método `movie_params` actúa como una precaución de seguridad al filtrar los parámetros permitidos antes de asignarlos a un modelo. Esta medida es esencial para salvaguardar nuestra aplicación contra posibles ataques de asignación masiva. A continuación se muestra una breve descripción de la funcionalidad de cada método.
 
 1. **`index`**: Este método recupera todos los registros de la tabla `Movie` y los asigna a la variable de instancia `@movies`. Esta variable se utiliza para mostrar la lista de películas en la vista correspondiente (`app/views/movies/index.html.erb`).
 
