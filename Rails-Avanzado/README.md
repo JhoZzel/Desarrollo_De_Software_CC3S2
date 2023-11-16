@@ -152,6 +152,7 @@ El filtro utiliza una consulta a la base de datos para obtener el usuario actual
 
 ## SSO y autenticación a través de terceros
 Vamos a crear a continuación un modelo y una migración básicos siguiendo las instrucciones de la actividad.
+
 a) Creamos el modelo `moviegoers` y una migración usando el siguiente comando, y luego hacemos un `rails db:migrate` para aplicar la migración.
 ![](img/5.png)
 
@@ -167,7 +168,17 @@ class Moviegoer < ActiveRecord::Base
 end
 ```
 
-Vamos a realizar la autenticación de usuario utilizando la gema OmniAuth que proporciona una API uniforme para muchos proveedores de SSO diferentes. Vamos a agregar nuevas líneas en nuestro archivo `config/routes.rb` ya que necesitamos se hace cambios necesarios en sus rutas, controladores y vistas para usar OmniAuth.
+
+Vamos a realizar la autenticación de usuario utilizando la gema OmniAuth que proporciona una API uniforme para muchos proveedores de SSO diferentes. Dado que estamos trabajando con esta nueva gema, tendremos que especificarla sobre nuestro archivo `Gemfile` y ejecutar el comando `bundle update` para que pueda instalarse asi como sus demas dependencias.
+
+```rb
+gem 'omniauth-twitter'
+```
+![](img/t1.png)
+![](img/t2.png)
+
+
+Luego, vamos a agregar nuevas líneas en nuestro archivo `config/routes.rb` ya que necesitamos se hace cambios necesarios en sus rutas, controladores y vistas para usar OmniAuth.
 ```rb
 Myrottenpotatoes::Application.routes.draw do
   resources :movies
@@ -222,3 +233,173 @@ end
 Si un atacante malintencionado crea un envío de formulario intentando modificar `params[:moviegoer][:uid]` o `params[:moviegoer][:provider]`, y estos campos no están protegidos adecuadamente, podría llevarse a cabo un ataque de asignación masiva. Esto significa que el atacante podría alterar información crítica de los usuarios, a través del formulario.
 
 ## Asociaciones y claves foráneas
+
+Una asociación es una relación lógica entre dos tipos de entidades de una arquitectura software. Por ejemplo, podemos añadir a RottenPotatoes las clases Review (crítica) y Moviegoer (espectador o usuario) para permitir que los usuarios escriban críticas sobre sus películas favoritas; podríamos hacer esto añadiendo una asociación de uno a muchos (one-to-many) entre las críticas y las películas (cada crítica es acerca de una película) y entre críticas y usuarios (cada crítica está escrita por exactamente un usuario).
+
+Explica la siguientes líneas de SQL:
+
+```sql
+SELECT reviews.*
+    FROM movies JOIN reviews ON movies.id=reviews.movie_id
+    WHERE movies.id = 41;
+```
+
+> Esta consulta SQL está seleccionando todas las columnas de la tabla `reviews` para aquellas filas donde existe una correspondencia entre las tablas `movies` y `reviews` en base a la condición `movies.id = reviews.movie_id`. Además, se filtra el resultado para incluir solo las críticas asociadas a la película con `movies.id = 41`.
+
+
+
+
+Comprueba la implementación sencilla de asociaciones de hacer referencia directamente a objetos asociados, aunque estén almacenados en diferentes tablas de bases de datos. ¿Por que se puede hacer esto?
+
+```rb
+# it would be nice if we could do this:
+inception = Movie.where(:title => 'Inception')
+alice,bob = Moviegoer.find(alice_id, bob_id)
+# alice likes Inception, bob less so
+alice_review = Review.new(:potatoes => 5)
+bob_review   = Review.new(:potatoes => 3)
+# a movie has many reviews:
+inception.reviews = [alice_review, bob_review]
+# a moviegoer has many reviews:
+alice.reviews << alice_review
+bob.reviews << bob_review
+# can we find out who wrote each review?
+inception.reviews.map { |r| r.moviegoer.name } # => ['alice','bob']
+```
+
+
+> En Rails, el código proporcionado es posible gracias a la implementación de las asociaciones entre modelos y la funcionalidad de ActiveRecord ya que las asociaciones permiten establecer relaciones lógicas entre diferentes modelos en una aplicación Rails.
+
+
+a): Crea y aplica esta migración para crear la tabla Reviews. Las claves foraneas del nuevo modelo están relacionadas con las tablas movies y moviegoers existentes por convención sobre la configuración.
+
+![](img/8.png)
+
+Ahora editaremos `db/migrate/*_create_reviews.rb` de la siguiente forma, pero añadiremos la versión de nuestro Active Record para evitar posibles errores de compatibilidad durante la migración:
+```rb
+class CreateReviews < ActiveRecord::Migration[6.0]
+    def change
+        create_table 'reviews' do |t|
+        t.integer    'potatoes'
+        t.text       'comments'
+        t.references 'moviegoer'
+        t.references 'movie'
+        end
+    end
+end
+```
+
+b) Colocaremos este nuevo modelo de revisión en `app/models/review.rb`.
+
+```rb
+class Review < ActiveRecord::Base
+    belongs_to :movie
+    belongs_to :moviegoer
+end
+```
+
+c) Colocaremos una copia de la siguiente línea en cualquier lugar dentro de la clase Movie Y dentro de la clase Moviegoer (idiomáticamente, debería ir justo después de 'class Movie' o 'class Moviegoer'), es decir realiza este cambio de una línea en cada uno de los archivos existentes movie.rb y moviegoer.rb.
+```rb
+has_many :reviews
+```
+Agregas la línea previa en nuestros archivos, los cuales quedarían ahora de la siguiente manera:
+
+```rb
+class Movie < ActiveRecord::Base
+    has_many :reviews
+    
+    def self.all_ratings ; %w[G PG PG-13 R NC-17] ; end #  shortcut: array of strings
+    validates :title, :presence => true
+    validates :release_date, :presence => true
+    validate :released_1930_or_later # uses custom validator below
+    validates :rating, :inclusion => {:in => Movie.all_ratings},
+        :unless => :grandfathered?
+    def released_1930_or_later
+        errors.add(:release_date, 'must be 1930 or later') if
+        release_date && release_date < Date.parse('1 Jan 1930')
+    end
+    @@grandfathered_date = Date.parse('1 Nov 1968')
+    def grandfathered?
+        release_date && release_date < @@grandfathered_date
+    end
+end
+
+class Movie < ActiveRecord::Base
+    before_save :capitalize_title
+    def capitalize_title
+        self.title = self.title.split(/\s+/).map(&:downcase).
+        map(&:capitalize).join(' ')
+    end
+end
+```
+
+```rb
+class Moviegoer < ActiveRecord::Base
+    has_many :reviews
+
+    def self.create_with_omniauth(auth)
+        Moviegoer.create!(
+        :provider => auth["provider"],
+        :uid => auth["uid"],
+        :name => auth["info"]["name"])
+    end
+end
+
+```
+
+Una vez realizado esto, vamos a realizar la migración en nuestro terminal como se muestra a continuación.
+![](img/10.png)
+
+
+## Asociaciones Indirectas
+Para empezar vamos a modificar nuestro modelo `movie.rb` y agregar la siguiente línea
+```rb
+has_many :reviews
+has_many :moviegoers, through: :reviews
+```
+Esto con el fin de estableecr una conexión indirecta a traves de `reviews`.
+
+```rb
+class Movie < ActiveRecord::Base
+    has_many :reviews
+    has_many :reviews
+
+    def self.all_ratings ; %w[G PG PG-13 R NC-17] ; end #  shortcut: array of strings
+    validates :title, :presence => true
+    validates :release_date, :presence => true
+    validate :released_1930_or_later # uses custom validator below
+    validates :rating, :inclusion => {:in => Movie.all_ratings},
+        :unless => :grandfathered?
+    def released_1930_or_later
+        errors.add(:release_date, 'must be 1930 or later') if
+        release_date && release_date < Date.parse('1 Jan 1930')
+    end
+    @@grandfathered_date = Date.parse('1 Nov 1968')
+    def grandfathered?
+        release_date && release_date < @@grandfathered_date
+    end
+end
+
+class Movie < ActiveRecord::Base
+    before_save :capitalize_title
+    def capitalize_title
+        self.title = self.title.split(/\s+/).map(&:downcase).
+        map(&:capitalize).join(' ')
+    end
+end
+```
+
+¿Qué indica el siguiente código SQL ?
+```sql
+SELECT movies .*
+    FROM movies JOIN reviews ON movies.id = reviews.movie_id
+    JOIN moviegoers ON moviegoers.id = reviews.moviegoer_id
+    WHERE moviegoers.id = 1;
+```
+> Esta consulta SQL selecciona todas las columnas de la tabla `movies` tales que tras hacer un `JOIN` de la tabla `movies` con la tabla `reviews` utilizando la condición `movies.id = reviews.movie_id` y volver a hacer un `JOIN` con la tabla `moviegoers` utilizando la condición `moviegoers.id = reviews.moviegoer_id` cumplan que `moviegoer.id` es igual a 1.
+
+Finalmete se menciona la funcionalidad de las asociaciones en Rails, lo cual ha ampliado mi comprensión sobre cómo modelar y estructurar las relaciones entre diferentes entidades en una aplicación. Asimismo es importante mencionar el uso de hooks específicos de ActiveRecord para intervenir en eventos asociados a las asociaciones y a aplicar validaciones tanto en el modelo principal como en los modelos asociados.
+
+En adición, es importante considerar las operaciones de guardado y destrucción en objetos con asociaciones, ya que afectan a los objetos asociados. Esto proporciona una visión más completa sobre el ciclo de vida de los objetos y cómo las acciones en un modelo pueden repercutir en otros modelos relacionados.
+
+La opción `:dependent` en las asociaciones ha sido otro aspecto clave, que permite controlar el comportamiento de los objetos asociados al destruir el objeto principal. 
