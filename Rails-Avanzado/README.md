@@ -198,7 +198,7 @@ Adicionalmente vamos a crear el controlador para que pueda manejar las sesiones,
 ```rb
 class SessionsController < ApplicationController
   # login & logout actions should not require user to be logged in
-  skip_before_filter :set_current_user  # check you version
+  skip_before_filter :set_current_user  
   def create
     auth = request.env["omniauth.auth"]
     user =
