@@ -1,4 +1,5 @@
 # Ruby en Rails avanzado
+Chavez Chico Joel Jhotan 20210058J
 
 ## Vistas parciales, validaciones y filtros
 
@@ -244,7 +245,7 @@ SELECT reviews.*
     WHERE movies.id = 41;
 ```
 
-> Esta consulta SQL está seleccionando todas las columnas de la tabla `reviews` para aquellas filas donde existe una correspondencia entre las tablas `movies` y `reviews` en base a la condición `movies.id = reviews.movie_id`. Además, se filtra el resultado para incluir solo las críticas asociadas a la película con `movies.id = 41`.
+**Respuesta**: Esta consulta SQL está seleccionando todas las columnas de la tabla `reviews` para aquellas filas donde existe una correspondencia entre las tablas `movies` y `reviews` en base a la condición `movies.id = reviews.movie_id`. Además, se filtra el resultado para incluir solo las críticas asociadas a la película con `movies.id = 41`.
 
 
 
@@ -267,8 +268,7 @@ bob.reviews << bob_review
 inception.reviews.map { |r| r.moviegoer.name } # => ['alice','bob']
 ```
 
-
-> En Rails, el código proporcionado es posible gracias a la implementación de las asociaciones entre modelos y la funcionalidad de ActiveRecord ya que las asociaciones permiten establecer relaciones lógicas entre diferentes modelos en una aplicación Rails.
+**Respuesta**: En Rails, el código proporcionado es posible gracias a la implementación de las asociaciones entre modelos y la funcionalidad de ActiveRecord ya que las asociaciones permiten establecer relaciones lógicas entre diferentes modelos en una aplicación Rails.
 
 
 a): Crea y aplica esta migración para crear la tabla Reviews. Las claves foraneas del nuevo modelo están relacionadas con las tablas movies y moviegoers existentes por convención sobre la configuración.
@@ -396,7 +396,7 @@ SELECT movies .*
     JOIN moviegoers ON moviegoers.id = reviews.moviegoer_id
     WHERE moviegoers.id = 1;
 ```
-> Esta consulta SQL selecciona todas las columnas de la tabla `movies` tales que tras hacer un `JOIN` de la tabla `movies` con la tabla `reviews` utilizando la condición `movies.id = reviews.movie_id` y volver a hacer un `JOIN` con la tabla `moviegoers` utilizando la condición `moviegoers.id = reviews.moviegoer_id` cumplan que `moviegoer.id` es igual a 1.
+**Respuesta**: Esta consulta SQL selecciona todas las columnas de la tabla `movies` tales que tras hacer un `JOIN` de la tabla `movies` con la tabla `reviews` utilizando la condición `movies.id = reviews.movie_id` y volver a hacer un `JOIN` con la tabla `moviegoers` utilizando la condición `moviegoers.id = reviews.moviegoer_id` cumplan que `moviegoer.id` es igual a 1.
 
 Finalmete se menciona la funcionalidad de las asociaciones en Rails, lo cual ha ampliado mi comprensión sobre cómo modelar y estructurar las relaciones entre diferentes entidades en una aplicación. Asimismo es importante mencionar el uso de hooks específicos de ActiveRecord para intervenir en eventos asociados a las asociaciones y a aplicar validaciones tanto en el modelo principal como en los modelos asociados.
 
