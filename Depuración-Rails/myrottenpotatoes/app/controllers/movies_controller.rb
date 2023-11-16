@@ -3,18 +3,15 @@ class MoviesController < ApplicationController
     @movies = Movie.all
   end
   def show
-    begin
-      id = params[:id] # retrieve movie ID from URI route
-      raise params.inspect
-    #byebug
-      @movie = Movie.find(id) # look up movie by unique ID
-      logger.debug("Detalles acerca de la pelicula 2: #{@movie.inspect}")
-      # will render render app/views/movies/show.html.haml by default
-    rescue => e
-    logger.debug("Excepción encontrada: #{e.message}")
-    end
+    id = params[:id] # retrieve movie ID from URI route
+    #raise.params.inspect
+    
+    @movie = Movie.find(id) # look up movie by unique ID
+    logger.debug("movie.inspect(): #{@movie.inspect}")
+    
+    rescue => excep
+      logger.debug("exception : #{excep.message}")
   end
-
   def new
     @movie = Movie.new
   end 
@@ -31,9 +28,8 @@ class MoviesController < ApplicationController
     @movie = Movie.find params[:id]
   end
   def update
-    @movie = Movie.find(params[:id])
-    #logger.debug("Params received: #{params.inspect}") # Mensaje para registrar los parámetros recibidos
-    if @movie.update_attributes(movie_params)
+    @movie = Movie.find params[:id]
+    if (@movie.update_attributes(movie_params))
       redirect_to movie_path(@movie), :notice => "#{@movie.title} updated."
     else
       flash[:alert] = "#{@movie.title} could not be updated: " +
@@ -41,7 +37,6 @@ class MoviesController < ApplicationController
       render 'edit'
     end
   end
-
   def destroy
     @movie = Movie.find(params[:id])
     @movie.destroy
