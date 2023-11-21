@@ -149,19 +149,19 @@ En Rails, el modelo Vista-Controlador (MVC) es un patrón de diseño asociado co
 A continuación se menciona algunas diferencias más resaltantes:
 
 1. **Separación de responsabilidades:**
-  - En una arquitectura de microservicios, los servicios están diseñados para ser independientes y gestionar funciones específicas del dominio. Cada microservicio tiene su propia lógica y datos mientrás que en una arquitectura cliente-servidor típica con Rails, la lógica del servidor (backend) y la interfaz de usuario del cliente (frontend) están más estrechamente vinculadas. Rails sigue un enfoque monolítico en el que el backend maneja la mayoría de las funciones y la interfaz de usuario interactúa con él.
+- En una arquitectura de microservicios, los servicios están diseñados para ser independientes y gestionar funciones específicas del dominio. Cada microservicio tiene su propia lógica y datos mientrás que en una arquitectura cliente-servidor típica con Rails, la lógica del servidor (backend) y la interfaz de usuario del cliente (frontend) están más estrechamente vinculadas. Rails sigue un enfoque monolítico en el que el backend maneja la mayoría de las funciones y la interfaz de usuario interactúa con él.
 
 2. **Flexibilidad tecnológica:**
-   - Cada microservicio puede utilizar tecnologías diferentes según los requisitos específicos del servicio. Esto permite la elección de la mejor tecnología para cada función. En una aplicación como Rails, todas las partes de la aplicación comparten la misma tecnología y base de código.
+- Cada microservicio puede utilizar tecnologías diferentes según los requisitos específicos del servicio. Esto permite la elección de la mejor tecnología para cada función. En una aplicación como Rails, todas las partes de la aplicación comparten la misma tecnología y base de código.
 
 3. **Escalabilidad y tolerancia a fallos:**
-   - La arquitectura de microservicios facilita la escalabilidad individual de servicios específicos en función de la carga. Además, la tolerancia a fallos se puede gestionar de manera más granular, pero para una app en rails puede requerir escalar toda la aplicación, incluso si solo una parte experimenta una carga pesada. La tolerancia a fallos está más centralizada.
+- La arquitectura de microservicios facilita la escalabilidad individual de servicios específicos en función de la carga. Además, la tolerancia a fallos se puede gestionar de manera más granular, pero para una app en rails puede requerir escalar toda la aplicación, incluso si solo una parte experimenta una carga pesada. La tolerancia a fallos está más centralizada.
 
 4. **Comunicación entre servicios:**
-   - En el tutorial, se utiliza ZeroMQ para la comunicación entre microservicios. La comunicación se gestiona a través de un broker, lo que permite la independencia entre servicios. La comunicación en la otra arquitectura suele realizarse a través de solicitudes HTTP directas entre el cliente y el servidor monolítico.
+- En el tutorial, se utiliza ZeroMQ para la comunicación entre microservicios. La comunicación se gestiona a través de un broker, lo que permite la independencia entre servicios. La comunicación en la otra arquitectura suele realizarse a través de solicitudes HTTP directas entre el cliente y el servidor monolítico.
 
 5. **Despliegue independiente:**
-   - Cada microservicio se puede implementar y actualizar de forma independiente, lo que facilita la implementación continua y la entrega continua, mientrás que en la otra, las actualizaciones afectan a toda la aplicación, lo que puede requerir un tiempo de inactividad planificado.
+- Cada microservicio se puede implementar y actualizar de forma independiente, lo que facilita la implementación continua y la entrega continua, mientrás que en la otra, las actualizaciones afectan a toda la aplicación, lo que puede requerir un tiempo de inactividad planificado.
 
 
 En conclusión, la elección entre una arquitectura orientada a microservicios y el enfoque cliente-servidor en Rails no puede reducirse a una afirmación de superioridad general. Ambos paradigmas presentan sus propias fortalezas y áreas de especialización. La arquitectura orientada a microservicios brinda mayor escalabilidad y flexibilidad, ideal para sistemas complejos y distribuidos. Por otro lado, el enfoque cliente-servidor de Rails ofrece simplicidad y eficiencia en aplicaciones más monolíticas. La elección depende en gran medida de los requisitos específicos del proyecto y las metas de desarrollo. Optar por uno sobre el otro debería basarse en una evaluación cuidadosa de los objetivos, la complejidad del sistema y las necesidades de escalabilidad para garantizar un diseño arquitectónico coherente y efectivo.
