@@ -135,18 +135,7 @@ En contraste, el artículo sobre JavaScript destaca el uso de bloques `try`, `ca
 
 2.- **Luego lee y replica el tutorial https://www.toptal.com/ruby/how-to-set-up-a-microservices-architecture e indica cuales son las principales diferencias en utilizar una arquitectura orientada  a Microservicios y la de Cliente-Servidor vista en clase con Rails.**
 
-**Respuesta**:
-
-Primero empezemos definiendo ambas arquitecturas:
-
-**Arquitectura Orientada a Microservicios:**: La arquitectura orientada a microservicios es un enfoque arquitectónico que estructura una aplicación como un conjunto de servicios pequeños e independientes. Cada servicio se centra en una función de negocio específica y se comunica con otros servicios a través de interfaces bien definidas, como API. Estos servicios son independientes y pueden desarrollarse, implementarse y escalarse de manera independiente. La idea es descomponer una aplicación monolítica en servicios más pequeños y manejables, lo que facilita la implementación, la escalabilidad y el mantenimiento.
-
-**Cliente-Servidor en Rails:**
-En el contexto de Ruby on Rails (Rails), que es un marco de desarrollo web, la arquitectura cliente-servidor se refiere al patrón de diseño donde el cliente (navegador web) interactúa con el servidor para obtener y enviar datos. En una aplicación Rails típica, el servidor está compuesto por la parte del servidor de Rails que maneja las solicitudes HTTP y se comunica con la base de datos. El cliente es el navegador web que realiza solicitudes al servidor y muestra la interfaz de usuario.
-
-En Rails, el modelo Vista-Controlador (MVC) es un patrón de diseño asociado con esta arquitectura. El modelo maneja la lógica de negocio y la interacción con la base de datos, la vista maneja la presentación de la interfaz de usuario y el controlador actúa como intermediario que gestiona las solicitudes del cliente y coordina las acciones necesarias.
-
-A continuación se menciona algunas diferencias más resaltantes:
+**Respuesta**: A continuación se menciona algunas diferencias más resaltantes:
 
 1. **Separación de responsabilidades:**
 - En una arquitectura de microservicios, los servicios están diseñados para ser independientes y gestionar funciones específicas del dominio. Cada microservicio tiene su propia lógica y datos mientrás que en una arquitectura cliente-servidor típica con Rails, la lógica del servidor (backend) y la interfaz de usuario del cliente (frontend) están más estrechamente vinculadas. Rails sigue un enfoque monolítico en el que el backend maneja la mayoría de las funciones y la interfaz de usuario interactúa con él.
