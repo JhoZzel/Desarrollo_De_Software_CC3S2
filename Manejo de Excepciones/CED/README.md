@@ -1,6 +1,7 @@
 # Actividad: código limpio, manejo de excepciones, depuración
 - Chavez Chico Joel Jhotan 2021005J
 Pasos de la actividad:
+
 1) **Implementa un repositorio personal llamado CC3S2 y dentro construye una carpeta llamada CED y utiliza el siguiente tutorial.:  https://www.toptal.com/abap/clean-code-and-the-art-of-exception-handling en alguna de las actividades o evaluaciones realizadas en clase. ¿Que diferencias encuentras con lo indicado aquí https://codedamn.com/news/javascript/error-handling-debugging para Java Script?**
 
 Para este paso nos basaremos en la actividad `Depuración SaaS que usan Rails` que ya hemos realizado anteriormente, así que a partir de este vamos a seguir las recomendaciones que se menciona en el artículo para poder manejar un código limpio.
