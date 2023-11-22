@@ -142,7 +142,7 @@ function firstCharNotDuplicated(string) {
             return c;
         }
     }
-    return 'a';
+    return '';
 }
 
 var s = "this is my string"
@@ -153,3 +153,59 @@ console.log(firstCharNotDuplicated(s));
 ![](img/6.png)
 
 ## Clases
+Para esta sección, se nos pide diseñar la clase Pokémon según las siguientes condiciones:
+
+1. El constructor debe tomar tres parámetros (HP, ataque, defensa).
+2. El constructor debe crear seis campos (HP, ataque, defensa, movimiento, nivel, tipo). Los valores de (movimiento, nivel, tipo) deben inicializarse en ("", 1, "").
+3. Implementar un método `flight` que arroje un error indicando que no se especifica ningún movimiento.
+4. Implementar un método `canFly` que verifique si se especifica un tipo. Si no, arrojar un error. Si sí, verificar si el tipo incluye "volar". Devolver verdadero si es así; si no, devolver falso.
+
+Una vez logrado esto, vamos a crear una clase hija Charizard que extiende la anterior con los siguientes cambios:
+
+1. El constructor de Charizard debe tomar cuatro parámetros (HP, ataque, defensa, movimiento).
+2. El constructor de Charizard debe configurar el movimiento y el tipo (para "disparar/volar") además de establecer HP, ataque y defensa usando el constructor de la superclase.
+3. Sobreescribir el método `fight`: Si se especifica un movimiento, imprimir una declaración indicando que se está utilizando el movimiento y devolver el campo de ataque. Si no se especifica ningún movimiento, arrojar un error.
+
+A continuación, mostramos el siguiente código ya completado:
+
+```js
+class Pokemon {
+  constructor(HP, ataque, defensa) {
+    this.HP = HP;
+    this.ataque = ataque;
+    this.defensa = defensa;
+    this.movimiento = "";
+    this.nivel = 1;
+    this.tipo = "";
+  }
+
+  flight() {
+    throw new Error("No se especificó ningún movimiento.");
+  }
+
+  canFly() {
+    if (!this.tipo) {
+      throw new Error("No se especificó ningún tipo.");
+    }
+
+    return this.tipo.includes("volar");
+  }
+}
+
+class Charizard extends Pokemon {
+  constructor(HP, ataque, defensa, movimiento) {
+    super(HP, ataque, defensa);
+    this.movimiento = movimiento;
+    this.tipo = "disparar/volar";
+  }
+
+  fight() {
+    if (this.movimiento) {
+      console.log(`Se está utilizando el movimiento ${this.movimiento}.`);
+      return this.ataque;
+    } else {
+      throw new Error("No se especificó ningún movimiento.");
+    }
+  }
+}
+```
