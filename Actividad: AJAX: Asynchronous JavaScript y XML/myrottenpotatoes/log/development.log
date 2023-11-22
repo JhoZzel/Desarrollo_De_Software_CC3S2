@@ -1167,3 +1167,15 @@ Processing by MoviesController#index as HTML
 Completed 200 OK in 173ms (Views: 155.8ms | ActiveRecord: 0.9ms | Allocations: 75715)
 
 
+Started GET "/movies" for ::1 at 2023-11-22 09:50:13 -0500
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MoviesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering movies/index.html.erb within layouts/application
+  [1m[36mMovie Load (0.2ms)[0m  [1m[34mSELECT "movies".* FROM "movies"[0m
+  ↳ app/views/movies/index.html.erb:11
+  Rendered movies/index.html.erb within layouts/application (Duration: 15.4ms | Allocations: 19516)
+  Rendered layout layouts/application.html.erb (Duration: 79.4ms | Allocations: 49444)
+Completed 200 OK in 99ms (Views: 81.9ms | ActiveRecord: 1.0ms | Allocations: 63109)
+
+
