@@ -1,4 +1,4 @@
-class Movie < ActiveRecord::Base
+# class Movie < ActiveRecord::Base
 =begin
     def self.all_ratings ; %w[G PG PG-13 R NC-17] ; end #  shortcut: array of strings
     validates :title, :presence => true
@@ -16,8 +16,8 @@ class Movie < ActiveRecord::Base
     end
 end
 =end
-end
 
+#begin
 class Movie < ActiveRecord::Base
     has_many :reviews
     before_save :capitalize_title
