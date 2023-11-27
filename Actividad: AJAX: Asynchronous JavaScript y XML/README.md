@@ -139,7 +139,7 @@ Para abordar este problema en jQuery, puedes hacer uso de la delegación de even
 
 ```javascript
 $(document).on('click', '.myClass', function() {
-    // Tu lógica de manejo de clic aquí
+    // ...
 });
 ```
 
