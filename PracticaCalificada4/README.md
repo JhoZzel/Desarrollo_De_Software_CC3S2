@@ -266,7 +266,6 @@ function User(username, password) {
   this.getUsername = function () {
     return username;
   };
-}
+}```
 
-
-En este ejemplo, el constructor `User` devuelve un objeto con un método `checkPassword`, que puede utilizarse para verificar si una contraseña proporcionada coincide con la contraseña almacenada. Además, se utiliza una clausura para mantener la contraseña privada (`storedPassword`). No hay ninguna propiedad directa que contenga la contraseña en el objeto devuelto, y cualquier intento de acceder directamente a `storedPassword` desde fuera del constructor dará como resultado un error. .........
+En este ejemplo, el constructor `User` devuelve un objeto con un método `checkPassword`, que puede utilizarse para verificar si una contraseña proporcionada coincide con la contraseña almacenada. Además, se utiliza una clausura para mantener la contraseña privada (`storedPassword`). No hay ninguna propiedad directa que contenga la contraseña en el objeto devuelto, y cualquier intento de acceder directamente a `storedPassword` desde fuera del constructor dará como resultado un error.
