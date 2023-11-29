@@ -254,3 +254,19 @@ a) Extienda el código del controlador del código siguiente dado con los métod
 **Preguntas**: (estas preguntas son utilizando el repositorio de todas tus actividades relacionada a JavaScript, por lo tanto, no hay respuestas únicas)
 
 1.- Un inconveniente de la herencia de prototipos es que todos los atributos (propiedades) de los objetos son públicos. Sin embargo, podemos aprovechar las clausuras para obtener atributos privados. Crea un sencillo constructor para los objetos User que acepte un nombre de usuario y una contraseña, y proporcione un método checkPassword que indique si la contraseña proporcionada es correcta, pero que deniegue la inspección de la contraseña en sí. Esta expresión de “sólo métodos de acceso” se usa ampliamente en jQuery. Sugerencia: El constructor debe devolver un objeto en el que una de sus propiedades es una función que aprovecha las clausuras de JavaScript para ‘recordar’ la contraseña proporcionada inicialmente al constructor. El objeto devuelto no debería tener ninguna propiedad que contenga la contraseña).
+
+Cuando trabajamos con JavaScript, podemos usar clausuras para crear atributos privados. El siguiente codigo muestra la implementacion de un constructor para objetos `User` con una contraseña privada y un método para verificar la contraseña:
+
+```javascript
+function User(username, password) {
+  var storedPassword = password;
+  this.checkPassword = function (inputPassword) {
+    return inputPassword === storedPassword;
+  };
+  this.getUsername = function () {
+    return username;
+  };
+}
+
+
+En este ejemplo, el constructor `User` devuelve un objeto con un método `checkPassword`, que puede utilizarse para verificar si una contraseña proporcionada coincide con la contraseña almacenada. Además, se utiliza una clausura para mantener la contraseña privada (`storedPassword`). No hay ninguna propiedad directa que contenga la contraseña en el objeto devuelto, y cualquier intento de acceder directamente a `storedPassword` desde fuera del constructor dará como resultado un error. .........
