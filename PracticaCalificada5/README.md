@@ -128,26 +128,26 @@ Observamos que se tiene 4 escenarios cargados que estan pendientes asi como 19 p
 
 
 Se ha utilizado el paso existente `When I check the "PG" checkbox` y se ha añadido `And I uncheck the following ratings: G, PG-13` para desmarcar las clasificaciones no seleccionadas.
-    ```cucumber
-    Scenario: restrict to movies with "PG" or "R" ratings
-    Given I check the following ratings: PG, R
-    And I uncheck the following ratings: G, PG-13
-    When I submit the search form on the homepage
-    Then I should see the following movies:
-        | title                   |
-        | Aladdin                 |
-        | The Terminator          |
-        | When Harry Met Sally    |
-        | The Help                |
-        | Chocolat                |
-        | Amelie                  |
-        | The Incredibles         |
-        | Raiders of the Lost Ark |
-    And I should not see the following movies:
-        | title                 |
-        | 2001: A Space Odyssey |
-        | Chicken Run           |
-    ```
+```
+Scenario: restrict to movies with "PG" or "R" ratings
+Given I check the following ratings: PG, R
+And I uncheck the following ratings: G, PG-13
+When I submit the search form on the homepage
+Then I should see the following movies:
+    | title                   |
+    | Aladdin                 |
+    | The Terminator          |
+    | When Harry Met Sally    |
+    | The Help                |
+    | Chocolat                |
+    | Amelie                  |
+    | The Incredibles         |
+    | Raiders of the Lost Ark |
+And I should not see the following movies:
+    | title                 |
+    | 2001: A Space Odyssey |
+    | Chicken Run           |
+```
 
 **2. Dado que es tedioso repetir pasos como When I check the "PG" checkbox, And I check the "R" checkbox, etc., crea una definición de paso que coincida con un paso como, por ejemplo: Given I check the following ratings: G, PG, R. Esta definición de un solo paso solo debe marcar las casillas especificadas y dejar las demás 	casillas como estaban.**
 
