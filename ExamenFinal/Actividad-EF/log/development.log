@@ -216,3 +216,22 @@ Processing by MoviesController#index as HTML
   Rendered movies/index.html.erb within layouts/application (33.6ms)
   Rendered layouts/_flash.erb (0.3ms)
 Completed 200 OK in 212ms (Views: 186.3ms | ActiveRecord: 2.8ms)
+
+
+Started GET "/" for 127.0.0.1 at 2023-12-13 08:20:20 -0500
+
+
+Started GET "/movies" for 127.0.0.1 at 2023-12-13 08:20:20 -0500
+Processing by MoviesController#index as HTML
+Redirected to http://localhost:3000/movies?ratings%5BG%5D=1&ratings%5BPG%5D=1&ratings%5BPG-13%5D=1&ratings%5BR%5D=1&sort_by=id
+Filter chain halted as :force_index_redirect rendered or redirected
+Completed 302 Found in 5ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/movies?ratings%5BG%5D=1&ratings%5BPG%5D=1&ratings%5BPG-13%5D=1&ratings%5BR%5D=1&sort_by=id" for 127.0.0.1 at 2023-12-13 08:20:20 -0500
+Processing by MoviesController#index as HTML
+  Parameters: {"ratings"=>{"G"=>"1", "PG"=>"1", "PG-13"=>"1", "R"=>"1"}, "sort_by"=>"id"}
+  [1m[36mMovie Load (0.9ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."rating" IN ('G', 'PG', 'PG-13', 'R')  ORDER BY id[0m
+  Rendered movies/index.html.erb within layouts/application (28.5ms)
+  Rendered layouts/_flash.erb (0.3ms)
+Completed 200 OK in 222ms (Views: 191.0ms | ActiveRecord: 4.7ms)

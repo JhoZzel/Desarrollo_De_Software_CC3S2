@@ -5,7 +5,6 @@
 
 
 
-**Pregunta 02: **
 
 
 ## Parte 02
@@ -52,6 +51,8 @@ Luego modificamos el archivo `spec/rails_helper.rb` indicando el `require 'buebu
 
 
 ### Paso 1: Escribiendo una nueva vista (2 puntos)
+
+
 
 ### Paso 2: Lograr que se apruebe la primera especificación  (2 puntos)
 
