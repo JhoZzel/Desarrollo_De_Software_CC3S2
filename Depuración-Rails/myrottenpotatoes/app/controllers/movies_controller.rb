@@ -14,6 +14,9 @@ class MoviesController < ApplicationController
     logger.debug("Nueva linea 3 añadida en la rama")
 
     
+
+    logger.debug("Nueva linea ingresada el rama MAIN")
+
     rescue => excep
       logger.debug("exception :  #{excep.message}")
   end
