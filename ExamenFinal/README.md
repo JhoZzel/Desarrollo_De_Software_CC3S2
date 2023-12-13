@@ -9,9 +9,22 @@ Luego para poder identificar las ramas que tenemos usamos simplemente `git branc
 ![](img/a2.png)
 Hacemos el cambio con `git checkout test_branch`
 ![](img/a3.png)
-El cambio que haremos será eliminar el archivo `app/controllers/application_controller.rb`.
-![](img/a4.png)
-![](img/a5.png)
+El cambio que haremos será eliminar el archivo agregar unas lineas de imprsion en la consola en el archivo `app/controllers/movies_controller.rb`, tanto en la rama `main` como en la rama `test_branch`. Los cambios son los siguientes:
+![](img/x1.png)
+![](img/x2.png)
+Una vez hecho estos cambios y hacer los commits en las ramas
+![](img/z1.png)
+![](img/z2.png)
+Lo que vamos a hacer será un `git merge`, aqui el conflicto se presenta ya que se busca modificar el mismo archivo para ambas ramas, de modo que al hacer un merge, git no sabría que modificación mantener y que otra descartar. Asi que ejecutamos a continuación dicho comando:
+![](img/x3.png)
+Vemos que el conflicto esta presente, y para nuestro caso mantendremos los cambios para la rama `main` mientras que la otra será ignorada.
+
+![](img/x4.png)
+![](img/x5.png)
+Vemos finalmente que los cambios hechos en el main se han mantenido exitosamente.
+![](img/x6.png)
+
+
 
 
 
