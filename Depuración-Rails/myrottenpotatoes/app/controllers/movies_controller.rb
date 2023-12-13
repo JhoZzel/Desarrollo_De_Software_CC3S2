@@ -9,9 +9,9 @@ class MoviesController < ApplicationController
     @movie = Movie.find(id) # look up movie by unique ID
     logger.debug("movie.inspect() :  #{@movie.inspect}")
     # Modificacion
-    logger.debug("Nueva linea 1 añadida en la rama MAIN")
-    logger.debug("Nueva linea 2 añadida en la rama MAIN")
-    logger.debug("Nueva linea 3 añadida en la rama MAIN")
+    logger.debug("Nueva linea 1 añadida en la rama")
+    logger.debug("Nueva linea 2 añadida en la rama")
+    logger.debug("Nueva linea 3 añadida en la rama")
 
     
 
