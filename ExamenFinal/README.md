@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
     validate :username_format
 end
 ```
-**1.- ¿Qué pasa si tenemos @user sin nombre de usuario y llamamos a @user.valid? ¿Qué guardará @user.save**
+**1) ¿Qué pasa si tenemos @user sin nombre de usuario y llamamos a @user.valid? ¿Qué guardará @user.save**
 
 
 Si `@user` no tiene un nombre de usuario y se llama al método `valid?` en un modelo de Rails, la validación de presencia que se especifica con `validates :username, :presence => true` hará que la validación falle. Esto significa que `@user.valid?` devolverá `false`.
@@ -48,8 +48,37 @@ Podriamos verlo con el siguiente ejemplo de codigo:
 ```
 
 
-**2.- Implementa username_format. Para los propósitos, un nombre de usuario comienza 	con una letra y tiene como máximo 10 caracteres de largo. Recuerda, las validaciones 	personalizadas agregan un mensaje a la colección de errores.**
+**2) Implementa username_format. Para los propósitos, un nombre de usuario comienza 	con una letra y tiene como máximo 10 caracteres de largo. Recuerda, las validaciones 	personalizadas agregan un mensaje a la colección de errores.**
 
+
+**Pregunta 03: Recuerda, los filtros nos ayudan a verificar si ciertas condiciones se cumplen antes de permitir que se ejecute una acción del controlador. Para el modelo de User, digamos que queremos verificar si @user era administrador de todos los métodos en AdminController. Completa el método before_filter:check_admin a continuación que verifica si el campo de administrador en @user es verdadero. De lo contrario, redirija a la página admin_login con un mensaje que indica acceso restringido.**
+
+```rb
+class AdminController < ApplicationController
+    before_filter :check_admin
+    # Completa el codigo
+```
+
+**Pregunta 04: AJAX (JavaScript y XML asíncronos) es un grupo de herramientas y técnicas para el desarrollo de aplicaciones web asíncronas. El objetivo de AJAX es que la comunicación entre una aplicación y el servidor de datos (es decir, solicitudes HTTP) no interfiera con la experiencia, la visualización y el comportamiento de la aplicación. A continuación, se te proporciona un formulario que simula el inicio de sesión. Comprueba si la combinación de nombre de usuario y contraseña funciona junto con la cuenta, si la hay. Para hacer eso, queremos que se realice una solicitud HTTP POST cuando se envíe este formulario. Escribe tu solución con jQuery y comenta dónde debe ubicarse la función de devolución de llamada (callback). Comprueba tus resultados.**
+
+```html
+<form method="POST" id="foo">
+<input type="text" class="user" />
+<input type="password" class="pass" />
+<input type="button" value="Log␣in" id="onSubmit" />
+</form>
+$("#onSubmit").click(function() {
+# Tu codigo
+})
+```
+
+
+
+
+
+**Pregunta 05: ¿Cuándo deberías utilizar la metaprogramación basada en eval en lugar de la metaprogramación basada en bloques?.**
+
+Al elegir entre el uso de `eval` y bloques en Ruby, se debe considerar la simplicidad y claridad de la tarea en cuestión. Cuando se trata de tareas simples, como la creación de métodos básicos o el manejo de atributos, los bloques emergen como una opción más sencilla y legible, proporcionando además un mayor control sobre la ejecución y una mayor seguridad. Por otro lado, cuando la flexibilidad extrema y la ejecución dinámica de código son requisitos esenciales, `eval` se revela como una herramienta más potente, aunque su uso indiscriminado puede plantear riesgos en términos de seguridad.
 
 ## Parte 02
 ### Configurando dependencias del proyecto
