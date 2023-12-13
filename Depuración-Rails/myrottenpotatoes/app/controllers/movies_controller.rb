@@ -9,6 +9,9 @@ class MoviesController < ApplicationController
     @movie = Movie.find(id) # look up movie by unique ID
     logger.debug("movie.inspect() :  #{@movie.inspect}")
     
+
+    logger.debug("Nueva linea ingresada el rama MAIN")
+
     rescue => excep
       logger.debug("exception :  #{excep.message}")
   end
