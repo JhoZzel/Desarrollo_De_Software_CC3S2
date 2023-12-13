@@ -39,16 +39,13 @@ Si `@user` no tiene un nombre de usuario y se llama al método `valid?` en un mo
 
 Por otro  lado si se intenta guardar `@user` después de haber llamado a `@user.valid?`, la llamada a `@user.save` también devolverá `false`. En este caso, `@user` no se guardará en la base de datos porque no cumple con las validaciones especificadas.
 
-Aquí hay un ejemplo:
+Podriamos verlo con el siguiente ejemplo de codigo:
 
 ```ruby
 @user = User.new
 @user.valid?  # Devolverá false debido a la validación de presencia en el campo username
 @user.save    # Devolverá false y no guardará el usuario en la base de datos
 ```
-
-Es importante tener en cuenta que al intentar guardar un modelo en Rails, si las validaciones no se cumplen, el modelo no se guardará en la base de datos y `save` devolverá `false`. Esto proporciona un mecanismo para asegurar que los datos en la base de datos cumplan con ciertos criterios antes de ser almacenados.
-
 
 
 **2.- Implementa username_format. Para los propósitos, un nombre de usuario comienza 	con una letra y tiene como máximo 10 caracteres de largo. Recuerda, las validaciones 	personalizadas agregan un mensaje a la colección de errores.**
