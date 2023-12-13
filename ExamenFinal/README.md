@@ -1,7 +1,7 @@
 # Examen Final
 - Chavez Chico Joel Jhotan 20210058J
 ## Parte 01
-***Pregunta 01: Produce un conflicto de fusión (merge) en algún repositorio de tus actividades realizadas. Establece los pasos y comandos que usas para resolver un conflicto de fusión en Git. Si intentas git push y falla con un mensaje como : Non-fast-forward (error): failed to push some refs esto significa que algún archivo contiene un conflicto de fusión entre la versión de tu repositorio y la versión del repositorio origen. Para este ejercicio debes presentar el conflicto dado, los pasos y comandos para resolver el problema y las solución.**
+**Pregunta 01: Produce un conflicto de fusión (merge) en algún repositorio de tus actividades realizadas. Establece los pasos y comandos que usas para resolver un conflicto de fusión en Git. Si intentas git push y falla con un mensaje como : Non-fast-forward (error): failed to push some refs esto significa que algún archivo contiene un conflicto de fusión entre la versión de tu repositorio y la versión del repositorio origen. Para este ejercicio debes presentar el conflicto dado, los pasos y comandos para resolver el problema y las solución.**
 
 Vamos a trabajar sobre la actividad `Depuracion-Rails`, y vamos a crear una nueva rama llamada `test_branch`. Para crearla podemos usar el `git branch test_branch`.
 ![](img/a1.png)
@@ -25,7 +25,33 @@ Vemos finalmente que los cambios hechos en el main se han mantenido exitosamente
 ![](img/x6.png)
 
 
+**Pregunta 02: Digamos que nos dan el modelo de User de la siguiente manera:**
+```rb
+class User < ActiveRecord::Base
+    validates :username, :presence => true
+    validate :username_format
+end
+```
+**1.- ¿Qué pasa si tenemos @user sin nombre de usuario y llamamos a @user.valid? ¿Qué guardará @user.save**
 
+
+Si `@user` no tiene un nombre de usuario y se llama al método `valid?` en un modelo de Rails, la validación de presencia que se especifica con `validates :username, :presence => true` hará que la validación falle. Esto significa que `@user.valid?` devolverá `false`.
+
+Por otro  lado si se intenta guardar `@user` después de haber llamado a `@user.valid?`, la llamada a `@user.save` también devolverá `false`. En este caso, `@user` no se guardará en la base de datos porque no cumple con las validaciones especificadas.
+
+Aquí hay un ejemplo:
+
+```ruby
+@user = User.new
+@user.valid?  # Devolverá false debido a la validación de presencia en el campo username
+@user.save    # Devolverá false y no guardará el usuario en la base de datos
+```
+
+Es importante tener en cuenta que al intentar guardar un modelo en Rails, si las validaciones no se cumplen, el modelo no se guardará en la base de datos y `save` devolverá `false`. Esto proporciona un mecanismo para asegurar que los datos en la base de datos cumplan con ciertos criterios antes de ser almacenados.
+
+
+
+**2.- Implementa username_format. Para los propósitos, un nombre de usuario comienza 	con una letra y tiene como máximo 10 caracteres de largo. Recuerda, las validaciones 	personalizadas agregan un mensaje a la colección de errores.**
 
 
 ## Parte 02
