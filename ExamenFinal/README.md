@@ -3,7 +3,15 @@
 ## Parte 01
 ***Pregunta 01: Produce un conflicto de fusión (merge) en algún repositorio de tus actividades realizadas. Establece los pasos y comandos que usas para resolver un conflicto de fusión en Git. Si intentas git push y falla con un mensaje como : Non-fast-forward (error): failed to push some refs esto significa que algún archivo contiene un conflicto de fusión entre la versión de tu repositorio y la versión del repositorio origen. Para este ejercicio debes presentar el conflicto dado, los pasos y comandos para resolver el problema y las solución.**
 
-Vamos a trabajar sobre la actividad `Depuracion-Rails` 
+Vamos a trabajar sobre la actividad `Depuracion-Rails`, y vamos a crear una nueva rama llamada `test_branch`. Para crearla podemos usar el `git branch test_branch`.
+![](img/a1.png)
+Luego para poder identificar las ramas que tenemos usamos simplemente `git branch`
+![](img/a2.png)
+Hacemos el cambio con `git checkout test_branch`
+![](img/a3.png)
+El cambio que haremos será eliminar el archivo `app/controllers/application_controller.rb`.
+![](img/a4.png)
+![](img/a5.png)
 
 
 
