@@ -47,16 +47,48 @@ Podriamos verlo con el siguiente ejemplo de codigo:
 @user.save    # Devolverá false y no guardará el usuario en la base de datos
 ```
 
+**2) Implementa username_format. Para los propósitos, un nombre de usuario comienza con una letra y tiene como máximo 10 caracteres de largo. Recuerda, las validaciones personalizadas agregan un mensaje a la colección de errores.**
 
-**2) Implementa username_format. Para los propósitos, un nombre de usuario comienza 	con una letra y tiene como máximo 10 caracteres de largo. Recuerda, las validaciones 	personalizadas agregan un mensaje a la colección de errores.**
+**Implementación de `username_format`:**
 
+```ruby
+class User < ActiveRecord::Base
+  validates :username, presence: true
+  validate :username_format
 
-**Pregunta 03: Recuerda, los filtros nos ayudan a verificar si ciertas condiciones se cumplen antes de permitir que se ejecute una acción del controlador. Para el modelo de User, digamos que queremos verificar si @user era administrador de todos los métodos en AdminController. Completa el método before_filter:check_admin a continuación que verifica si el campo de administrador en @user es verdadero. De lo contrario, redirija a la página admin_login con un mensaje que indica acceso restringido.**
+  private
+
+  def username_format
+    if username.present? && (username.length > 10 || username !~ /\A[A-Za-z]/)
+      errors.add(:username, "debe comenzar con una letra y tener como máximo 10 caracteres de largo.")
+    end
+  end
+end
+```
+
+En esta implementación, el método `username_format` se encarga de realizar la validación personalizada. Primero, verifica si el nombre de usuario está presente y luego comprueba si cumple con las condiciones especificadas: debe comenzar con una letra y tener como máximo 10 caracteres de longitud. Si no cumple con estas condiciones, se agrega un mensaje de error a la colección de errores asociada al atributo `:username`.
+
+Esta validación personalizada asegura que los nombres de usuario en el modelo `User` cumplan con los requisitos establecidos antes de ser almacenados en la base de datos.
+
+**Pregunta 03: Recuerda, los filtros nos ayudan a verificar si ciertas condiciones se cumplen antes de permitir que se ejecute una acción del controlador. Para el modelo de User, digamos que queremos verificar si @user era administrador de todos los métodos en AdminController. Completa el método before_filter:check_admin a continuación que verifica si el campo de administrador en @user es verdadero. De lo contrario, redirija a la página admin_login con un mensaje que indica acceso restringido. Completa el codigo**
+
+Bien, para poder verficar lo solicitado vamos a plantear lo siguiente, usando el filtro (`before_filter`) en el controlador `AdminController` verficaremos si el usuario actual (`@user`) es un administrador antes de permitir la ejecución de cualquier método en el controlador. Si el usuario no es un administrador, se deberá redirigir a la página de inicio de sesión de administrador con un mensaje de acceso restringido.
+
+Para la implementacion del codigo usamos el método `check_admin` para verificar si `@user` existe y si es un administrador. En caso contrario, establece un mensaje de alerta y redirige al usuario a la página de inicio de sesión de administrador.
 
 ```rb
 class AdminController < ApplicationController
-    before_filter :check_admin
-    # Completa el codigo
+  before_filter :check_admin
+
+  private
+
+  def check_admin
+    unless @user && @user.admin?
+      flash[:alert] = "Acceso restringido. Debes ser un administrador."
+      redirect_to admin_login_path
+    end
+  end
+end
 ```
 
 **Pregunta 04: AJAX (JavaScript y XML asíncronos) es un grupo de herramientas y técnicas para el desarrollo de aplicaciones web asíncronas. El objetivo de AJAX es que la comunicación entre una aplicación y el servidor de datos (es decir, solicitudes HTTP) no interfiera con la experiencia, la visualización y el comportamiento de la aplicación. A continuación, se te proporciona un formulario que simula el inicio de sesión. Comprueba si la combinación de nombre de usuario y contraseña funciona junto con la cuenta, si la hay. Para hacer eso, queremos que se realice una solicitud HTTP POST cuando se envíe este formulario. Escribe tu solución con jQuery y comenta dónde debe ubicarse la función de devolución de llamada (callback). Comprueba tus resultados.**
@@ -72,6 +104,41 @@ $("#onSubmit").click(function() {
 })
 ```
 
+**Solución con jQuery:**
+
+```html
+<form method="POST" id="foo">
+  <input type="text" class="user" />
+  <input type="password" class="pass" />
+  <input type="button" value="Log in" id="onSubmit" />
+</form>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $("#onSubmit").click(function () {
+      var username = $(".user").val();
+      var password = $(".pass").val();
+
+      // Realizar solicitud AJAX con método POST
+      $.ajax({
+        type: "POST",
+        url: "/login", // Reemplaza con la URL correcta para la autenticación
+        data: { username: username, password: password },
+        success: function (response) {
+          // Función de devolución de llamada (callback) en caso de éxito
+          console.log("Autenticación exitosa:", response);
+        },
+        error: function (error) {
+          // Función de devolución de llamada (callback) en caso de error
+          console.error("Error de autenticación:", error);
+        }
+      });
+    });
+  });
+</script>
+```
+La función de devolución de llamada (`callback`) en caso de éxito (`success`) y en caso de error (`error`) está dentro de la función `$.ajax`. En estas funciones, puedes manejar la respuesta exitosa o el error de la solicitud AJAX. Asegúrate de reemplazar la URL en `url: "/login"` con la ruta correcta para el punto final de autenticación en tu servidor. Esta solución utiliza jQuery y realiza una solicitud POST para autenticar el usuario al hacer clic en el botón "Log in".
 
 
 
