@@ -7,10 +7,10 @@ class MoviesController < ApplicationController
     #raise.params.inspect
     
     @movie = Movie.find(id) # look up movie by unique ID
-    logger.debug("movie.inspect(): #{@movie.inspect}")
+    logger.debug("movie.inspect() :  #{@movie.inspect}")
     
     rescue => excep
-      logger.debug("exception : #{excep.message}")
+      logger.debug("exception :  #{excep.message}")
   end
   def new
     @movie = Movie.new
