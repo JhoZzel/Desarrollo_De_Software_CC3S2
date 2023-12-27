@@ -59,3 +59,38 @@ Migrating to AddDirectorToMovies (20231227125536)
   [1m[36m (3.9ms)[0m  [1mcommit transaction[0m
   [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
   [1m[36mMovie Load (0.2ms)[0m  [1mSELECT  "movies".* FROM "movies"  ORDER BY "movies"."id" ASC LIMIT 1[0m
+
+
+Started GET "/" for 127.0.0.1 at 2023-12-27 08:33:09 -0500
+
+
+Started GET "/movies" for 127.0.0.1 at 2023-12-27 08:33:09 -0500
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (1.2ms)[0m  [1mSELECT "movies".* FROM "movies"[0m
+  Rendered movies/index.html.erb within layouts/application (18.5ms)
+  Rendered layouts/_flash.erb (0.4ms)
+Completed 200 OK in 291ms (Views: 261.9ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2023-12-27 08:34:37 -0500
+Processing by MoviesController#index as HTML
+  [1m[35mMovie Load (0.2ms)[0m  SELECT "movies".* FROM "movies"
+  Rendered movies/index.html.erb within layouts/application (2.2ms)
+  Rendered layouts/_flash.erb (0.1ms)
+Completed 200 OK in 12ms (Views: 11.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2023-12-27 08:34:37 -0500
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.3ms)[0m  [1mSELECT "movies".* FROM "movies"[0m
+  Rendered movies/index.html.erb within layouts/application (3.7ms)
+  Rendered layouts/_flash.erb (0.1ms)
+Completed 200 OK in 15ms (Views: 14.3ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2023-12-27 08:34:38 -0500
+Processing by MoviesController#index as HTML
+  [1m[35mMovie Load (0.2ms)[0m  SELECT "movies".* FROM "movies"
+  Rendered movies/index.html.erb within layouts/application (2.0ms)
+  Rendered layouts/_flash.erb (0.1ms)
+Completed 200 OK in 13ms (Views: 12.0ms | ActiveRecord: 0.2ms)

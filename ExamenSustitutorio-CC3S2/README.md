@@ -2,6 +2,8 @@
 - Chavez Chico Joel Jhotan 20210058J
 
 ## Parte 1: El ciclo de prueba de aceptación- prueba unitaria
+
+### Corre y prepara rottenpotatoes
 Primero cambiamos al directorio rottenpotatoes donde trabajaremos e instalamos las gemas
 ![](img/1.png)
 Migramos la base de datos y configuramos la semilla para mostrar los primeros datos
@@ -10,6 +12,7 @@ Migramos la base de datos y configuramos la semilla para mostrar los primeros da
 Vemos que ya se esta desplegando en nuestro navegador.
 ![](img/4.png)
 
+### Agrega un campo Director a Movies
 Ahora vamos a ejecutar las pruebas de cucumber del archivo `features/movies_by_director.feature`. Para ello hacemos un `bundle exec cucumber` y vemos que aparece en consola.
 ![](img/5.png)
 ![](img/6.png)
@@ -21,7 +24,50 @@ Se buscar agregar un nuevo campo a la tabla para ello crearemos un archivo de mi
 Si nos dirigimos a la consola de rails, y seleccionamos cualquier fila de la tabla vemos que el campo director ha sido creado y para esta movie ha sido colocada como `nil`.
 ![](img/9.png)
 
+Luego para el modelo agregamos estas lineas de codigo con el fin de hacer una validadcion en nuestro modelo para que pueda reconocer el nuevo campo directo
+```rb
+class Movie < ActiveRecord::Base
+  validates :director, presence: true
+  def others_by_same_director
+    # Your code here #
+  end
+end
+```
+Ahora vamos a modificar nuestras vistas para que este campo se visualice en pantalla, para ello nos diririgimos al archivo `index.html.erb` y hacemos estos cambios, para que pueda ser incluida en la vista.
 
+```html
+...
+<tr>
+    <th>Movie Title</th>
+    <th>Director</th>
+    <th>Rating</th>
+    <th>Release Date</th>
+    <th>More Info</th>
+</tr>
+...
+ <td>
+    <%= movie.director %>
+</td>
+```
+![](img/10.png)
+Realizamos la prueba cucumber una vez mas y vemos que ahora se muestra los siguientes mensajes:
+
+![](img/11.png)
+
+### Utiliza pruebas de aceptación para aprobar nuevos escenarios (2 puntos)
+
+## Parte 2: Ruby on Rails
+### Pregunta 1: ¿Por qué la abstracción de un objeto de formulario pertenece a la capa de presentación y no a la capa de servicios (o inferior)?
+La abstracción de un objeto de formulario pertenece a la capa de presentación porque es responsable de la interacción del usuario con la aplicación y la manipulación de los datos de entrada del usuario antes de ser enviados al servidor. La capa de servicios no tiene conocimiento de la interfaz de usuario y no está diseñada para manejar la entrada del usuario.
+
+### Pregunta 2: ¿Cuál es la diferencia entre autenticación y autorización?
+Para empezar la autenticación es el proceso de verificar la identidad de un usuario, es decir, asegurarse de que el usuario es quien dice ser. Por otro lado, la autorización es el proceso de verificar si un usuario tiene permiso para acceder a un recurso o realizar una acción específica, es por ello que mientras que la autenticación se enfoca en la identidad del usuario, la autorización se enfoca en los permisos que este posee.
+
+### Pregunta 3:
+
+
+
+### Pregunta 4:
 
 
 

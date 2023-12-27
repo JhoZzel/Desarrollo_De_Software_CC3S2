@@ -8,6 +8,7 @@
     // Función para leer el valor de una cookie por su nombre
     function getCookie(name) {
       const cookies = document.cookie.split(';');
+      console.log(cookies)
       for (const cookie of cookies) {
         const [cookieName, cookieValue] = cookie.trim().split('=');
         if (cookieName === name) {
@@ -19,10 +20,11 @@
 
     // Función para crear una nueva cookie
     function setCookie(name, value, days) {
-      const expirationDate = new Date();
-      expirationDate.setDate(expirationDate.getDate() + days);
-      const cookieValue = encodeURIComponent(value) + '; expires=' + expirationDate.toUTCString();
-      document.cookie = name + '=' + cookieValue;
+      var date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      var expires = "expires=" + date.toUTCString();
+      var ret = name + "=" + value + ";" + expires + ";path=/";
+      return ret
     }
 
     // Función para eliminar una cookie por su nombre
@@ -36,12 +38,19 @@
       console.log('Valor actual de document.cookie:', document.cookie);
 
       // Intenta eliminar una cookie por su nombre
-      const cookieNameToDelete = 'miCookie';
-      console.log('Intentando eliminar la cookie', cookieNameToDelete);
-      deleteCookie(cookieNameToDelete);
+      var s = setCookie('miCookie', 'Lol', 8);
+      console.log(s)
+
+      document.cookie = 'asd'
+
+      console.log('Valor actual de document.cookie:', document.cookie);
+
+      //const cookieNameToDelete = 'miCookie';
+      //console.log('Intentando eliminar la cookie', cookieNameToDelete);
+      //deleteCookie(cookieNameToDelete);
 
       // Verifica si la cookie fue eliminada
-      console.log('Valor después de intentar eliminar la cookie:', document.cookie);
+      //console.log('Valor después de intentar eliminar la cookie:', document.cookie);
     };
   </script>
 </head>
