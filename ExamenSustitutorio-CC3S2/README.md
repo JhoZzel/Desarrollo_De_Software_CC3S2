@@ -68,10 +68,66 @@ Para empezar la autenticación es el proceso de verificar la identidad de un usu
 
 
 ### Pregunta 4:
+Para realizar esto nos dirigiremos a nuestra actividad de `Rails-Avanzado` y sobre este repositorio vamos a ejecutar los comandos, para empezar inciamos ejecutando lo siguiente:
+![](img/a1.png)
+Esto lo que hace es buscar todos los archivos con extensión .rb en la carpeta app/models y sus subdirectorios para ello itera sobre cada archivo encontrado y ejecuta el siguiente bloque de código, luego cuenta el número de commits de Git que han modificado el archivo actual, se calcula la complejidad del archivo actual utilizando Flog y awk. Flog mide la complejidad de un archivo en términos de la complejidad de sus métodos, y awk suma las complejidades de todos los métodos del archivo.
+Vamos a usar la gema Flog que se menciona, ya q ofrece una interfaz 
+![](img/a2.png)
+Si revisamos la documentacion en guthub de dicha gema nos ofrece el siguiente comando para poder visualizar una grafica de `Churn VS Complexity`
+Lamentablemente no se puede ver la grafica debido a la limitada cantidad de commits que se hizo, pero se pudo usar la gema correctamente.
+![](img/a5.png)
 
 
 
 ## Parte 3: JavaScript
+### Pregunta 01:
+Se nos pide configurar una pagina web con el fin de poder interactuar con las cookies, asi que podemos hacer lo siguiente, crear un archivo html y dentro manejar codigo JS con las funcion de get, set y delete, la implementacion se muestra a continuacion, se encuentra en este repositorio bajo el nombre `cookie_operations`.
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cookie Operations</title>
+  <script>
+    function getCookie(name) {
+      const cookies = document.cookie.split(';');
+      console.log(cookies)
+      for (const cookie of cookies) {
+        const [cookieName, cookieValue] = cookie.trim().split('=');
+        if (cookieName === name) {
+          return decodeURIComponent(cookieValue);
+        }
+      }
+      return null;
+    }
+
+    function setCookie(name, value, days) {
+      var date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      var expires = "expires=" + date.toUTCString();
+      var ret = name + "=" + value + ";" + expires + ";path=/";
+      return ret
+    }
+
+    function deleteCookie(name) {
+      document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    }
+
+    window.onload = function() {
+      console.log('document.cookie (vacio): ', document.cookie);
+    };  
+  </script>
+</head>
+<body>
+  <h1>Cookie Operations</h1>
+</body>
+</html>
+```
+Mostramos los resultados a continuacion, junto con la consola donde se hacen las interacciones, primero asignamos la cookie que queramos, luego el metodo delete es el encargado de eliminarlo y se muestra que el `document.cookie` esta vacio ya que este fue eliminado.
+
+![](img/H.png)
+
 ### Pregunta 02:
 Usamos el codigo proporcionado y creamos nuestro archivo `index.html`, vemos que se visualiza en el navegador, pero aun falta el codigo en JS.
 ![](img/b.png)

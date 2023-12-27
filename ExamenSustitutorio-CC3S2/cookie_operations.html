@@ -32,25 +32,8 @@
       document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     }
 
-    // Configura la página web
     window.onload = function() {
-      // Genera el valor de document.cookie que debería estar en blanco
-      console.log('Valor actual de document.cookie:', document.cookie);
-
-      // Intenta eliminar una cookie por su nombre
-      var s = setCookie('miCookie', 'Lol', 8);
-      console.log(s)
-
-      document.cookie = 'asd'
-
-      console.log('Valor actual de document.cookie:', document.cookie);
-
-      //const cookieNameToDelete = 'miCookie';
-      //console.log('Intentando eliminar la cookie', cookieNameToDelete);
-      //deleteCookie(cookieNameToDelete);
-
-      // Verifica si la cookie fue eliminada
-      //console.log('Valor después de intentar eliminar la cookie:', document.cookie);
+      console.log('document.cookie (vacio): ', document.cookie);
     };
   </script>
 </head>
