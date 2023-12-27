@@ -33,28 +33,62 @@ class Movie < ActiveRecord::Base
   end
 end
 ```
-Ahora vamos a modificar nuestras vistas para que este campo se visualice en pantalla, para ello nos diririgimos al archivo `index.html.erb` y hacemos estos cambios, para que pueda ser incluida en la vista.
+Ahora vamos a modificar nuestras vistas para que este campo se visualice en pantalla, para ello nos diririgimos a la carpeta `views` y agregaremos el campo de director como una nueva etiqueta, para que pueda ser incluida en todas y cada una.
 
-```html
-...
-<tr>
-    <th>Movie Title</th>
-    <th>Director</th>
-    <th>Rating</th>
-    <th>Release Date</th>
-    <th>More Info</th>
-</tr>
-...
- <td>
-    <%= movie.director %>
-</td>
+- index.html.erb
+![](img/l0.png)
+
+- edit.html.erb
+![](img/l8.png)
+
+- new.html.erb
+![](img/l7.png)
+
+- show.html.erb
+![](img/l9.png)
+
+Una vez hecho esto, vamos a editar una movie con su director pero para ello vamos a modificar el controlador para que considere tambien el campo director cuando haya cambios
+```rb
+def movie_params
+    params.require(:movie).permit(:title, :rating, :description, :release_date, :director)
+end
 ```
-![](img/10.png)
-Realizamos la prueba cucumber una vez mas y vemos que ahora se muestra los siguientes mensajes:
+Ahora si editamos la movie `Aladdin` como se muestra a continuacion.
+![](img/ñ2.png)
+![](img/ñ1.png)
+![](img/Ñ3.png)
 
-![](img/11.png)
+Volvemos a ejecutar el cucumber para ver que escenarios han logrado pasar exitosamente, y cuales aun estan pendientes por resolver
+![](img/PP.png)
+
+Estos escenarios son aprobados porque ya se encuentra implementado director en nuestra base de datos, y dichos escenarios muestran que si me dirijo a movies, voy a ser capaz de encontrar a los directores correspondientes.
+
+Se han aprobado 3 escenarios ya que se logro incoroporar el campo de director en nuestra BD, ahora bien se tienen los errores anteriores porque no hemos proporcionado las páginas para los when I visit the edit page.
+
+Para poder arreglar esto, cucumber nos ofrece un mensaje que nos indica que debemos de dirigirnos a `./features/support/paths.rb`, asi que ahi haremos el siguiente cambio:
+
+```rb
+case $1
+when 'edit'
+  movie = Movie.find_by_title($2)
+  if movie.present?
+    edit_movie_path(movie.id)
+  end
+when 'details'
+  movie = Movie.find_by_title($2)
+  if movie.present?
+    movie_path(movie)
+  end
+end
+```
+Ejecutamos otra vez el cucumber y observamos los siguientes resultados
+![](img/RS.png)
+
 
 ### Utiliza pruebas de aceptación para aprobar nuevos escenarios (2 puntos)
+
+
+
 
 ## Parte 2: Ruby on Rails
 ### Pregunta 1: ¿Por qué la abstracción de un objeto de formulario pertenece a la capa de presentación y no a la capa de servicios (o inferior)?
@@ -64,8 +98,22 @@ La abstracción de un objeto de formulario pertenece a la capa de presentación 
 Para empezar la autenticación es el proceso de verificar la identidad de un usuario, es decir, asegurarse de que el usuario es quien dice ser. Por otro lado, la autorización es el proceso de verificar si un usuario tiene permiso para acceder a un recurso o realizar una acción específica, es por ello que mientras que la autenticación se enfoca en la identidad del usuario, la autorización se enfoca en los permisos que este posee.
 
 ### Pregunta 3:
+Según lo expuesto, los middlewares son componentes que desempeñan un papel fundamental en el desarrollo de software. Estos componentes rodean la ejecución de una función central, brindando la capacidad de inspeccionar y modificar datos de entrada y salida sin alterar la interfaz original. En esencia, los middlewares sirven como capas intermedias que intervienen en el flujo de ejecución de una aplicación.
 
+1. **¿Qué pasa si omite el middleware de Rack y se pasa la solicitud al enrutador directamente (Rails.application.routes.call(request))?**
+   
+   Si omitimos el middleware de Rack y pasamos la solicitud directamente al enrutador de Rails, se estaría eludiendo una serie de procesos y manipulaciones que normalmente ocurren en la pila de middleware ya que el middleware de Rack es responsable de realizar diversas tareas, como manejar sesiones, ejecutar filtros antes y después de la acción del controlador, gestionar parámetros de solicitud, etc.
 
+2. **¿Qué pasa si se omite el enrutador y se llama a una acción del controlador de inmediato (por ejemplo, PostsController.action(:index).call(request))?**
+
+   Si se omite el enrutador y se llama directamente a una acción del controlador, también se estaría eludiendo la lógica de enrutamiento que normalmente determina qué acción del controlador debe ejecutarse en función de la ruta de la solicitud.
+
+   Esto significa que no se aplicarán los mecanismos de enrutamiento estándar de Rails, y la acción especificada se ejecutará directamente. Esto podría llevar a un comportamiento inesperado si la ruta de la solicitud no coincide exactamente con la acción del controlador que estás llamando, ya que el enrutador no habrá realizado la correspondencia y, por lo tanto, no se habrá establecido adecuadamente el contexto de la solicitud para esa acción específica.
+
+A continuacion usaremos trace_location para realizar algunos experimentos y analizar los resultados, para ello vamos a dirigirnos a la consola rails.
+![](img/ñp.png)
+Notemos que se ha creado un archivo md, en la carpeta log con los reigstros que hemos hecho en la consola, asi como la marca de tiempo.
+![](img/asd.png)
 
 ### Pregunta 4:
 Para realizar esto nos dirigiremos a nuestra actividad de `Rails-Avanzado` y sobre este repositorio vamos a ejecutar los comandos, para empezar inciamos ejecutando lo siguiente:
@@ -204,7 +252,48 @@ Vemos que ahora si no se ha mostrado ningun error y la consola imprime los resul
 ![](img/e.png)
 
 
+### Pregunta 03:
 
+----
+
+### Pregunta 04:
+Para esta pregunta vamos a agregar el metodo `name_with_rating` en nuestra clase `Movie` 
+```rb
+def name_with_rating
+  return "#{title} (#{rating})"
+end
+```
+Ahora vamos a nuestra carpeta de test de spec, y crearemos el siguiente archivo bajo el nombre `test_spec.rb`.
+```rb
+# spec/fake_movie_spec.rb
+require 'rails_helper.rb'
+
+RSpec.describe Movie do
+    describe "#name_with_rating" do
+      it "returns the formatted name with rating" do
+        fake_movie = double('Movie')
+
+        allow(fake_movie).to receive(:title).and_return('Casablanca')
+        allow(fake_movie).to receive(:rating).and_return('PG')
+        
+        expect(fake_movie.name_with_rating).to eq 'Casablanca (PG)'
+      end
+    end
+end
+```
+![](img/PO.png)
+
+1. **¿Dónde podemos conseguir una instancia de Movie real para utilizarla en dicha prueba?**
+   - Para obtener una instancia real de `Movie` podemos usar el método `create` o `new` de la clase `Movie` en Rails. Podemos hacer lo siguiente
+     ```ruby
+     real_movie_instance = Movie.create(title: "Example Movie", rating: "PG", ....)
+     ```
+     Aquí, `create` crea una nueva instancia de `Movie` y la guarda en la base de datos, mientras que `new` crea una nueva instancia sin guardarla aún.
+
+2. **¿Qué hacen los siguientes códigos entregados y dónde se ubican? ¿Por qué hay que tener cuidado en su uso?**
+   - Se debe de tener cuidado ya que puede depender excesivamente de objetos reales en las pruebas. Recordemos que en las pruebas unitarias, se prefiere el uso de objetos de doble (mocks, stubs) para aislar la funcionalidad y centrarse en probar la lógica específica de la unidad bajo prueba. Sin embargo, como se indica en el enunciado, en algunas situaciones, puede tener sentido utilizar objetos reales cuando se prueba métodos de instancia específicos de la clase.
+
+  
 ## Parte 4: Pruebas y Rspec (3 puntos)
 Para esta parte se nos solicita realizar pruebas sobre el sistema de puntuación de un juego de tennis, para ello vamos a trabajar sobre un nuevo repositorio llamado `tennis_test`, y vamos a instalarle la gema de Rspec y hacer un `rspec init` como ya es habitual, creamos la carpeta `/spec/my_tests` y agregaremos la clase `TennisScorer` que vamos a usar donde estará la lógica del sistema y por otro lado las pruebas que haremos que serán las siguientes que se mencionan:
 

@@ -16,6 +16,8 @@ class MoviesController < ApplicationController
 
   def create
     @movie = Movie.create!(movie_params)
+    TraceLocation.trace(match: /activerecord/) { @movie.validate }
+
     flash[:notice] = "#{@movie.title} was successfully created."
     redirect_to movies_path
   end
@@ -27,6 +29,7 @@ class MoviesController < ApplicationController
   def update
     @movie = Movie.find params[:id]
     @movie.update_attributes!(movie_params)
+    TraceLocation.trace(match: /activerecord/) { @movie.validate }
     flash[:notice] = "#{@movie.title} was successfully updated."
     redirect_to movie_path(@movie)
   end
@@ -42,6 +45,6 @@ class MoviesController < ApplicationController
 
   # Note - for Part 1, you may need to modify this method.
   def movie_params
-    params.require(:movie).permit(:title, :rating, :description, :release_date)
+    params.require(:movie).permit(:title, :rating, :description, :release_date, :director)
   end
 end

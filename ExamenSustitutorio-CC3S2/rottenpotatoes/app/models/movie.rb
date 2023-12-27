@@ -6,6 +6,10 @@ class Movie < ActiveRecord::Base
 
   validates :director, presence: true
 
+  def name_with_rating
+    return "#{title} (#{rating})"
+  end
+
   def others_by_same_director
     # Your code here #
   end
