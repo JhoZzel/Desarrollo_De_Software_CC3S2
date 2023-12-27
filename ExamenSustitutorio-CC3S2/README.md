@@ -197,3 +197,132 @@ Ahora bien vamos a ingresar los datos correctamente, y observemos la consola del
 Vemos que ahora si no se ha mostrado ningun error y la consola imprime los resultados como `Form-tag`
 ![](img/e.png)
 
+
+
+## Parte 4: Pruebas y Rspec (3 puntos)
+Para esta parte se nos solicita realizar pruebas sobre el sistema de puntuación de un juego de tennis, para ello vamos a trabajar sobre un nuevo repositorio llamado `tennis_test`, y vamos a instalarle la gema de Rspec y hacer un `rspec init` como ya es habitual, creamos la carpeta `/spec/my_tests` y agregaremos la clase `TennisScorer` que vamos a usar donde estará la lógica del sistema y por otro lado las pruebas que haremos que serán las siguientes que se mencionan:
+
+![](img/l1.png)
+
+Vamos a ejecutar el Rspec para verificar que todo este marchando correctamente.
+![](img/l2.png)
+Vemos que se pueden reconocer las pruebas y se marcan como pendientes, ahora bien vamos a completar nuestra clase `TennisSoccer` y agregaremos los metodos necesarios. A continuación se adjunta el codigo ya resuelto con los metodos necesarios, y con esto ya estamos listos para realizar las pruebas, pero antes se hará una breve explicación de como funciona.
+
+```rb
+class TennisScorer
+    PLAYER_RELATION = { server: :receiver, receiver: :server }
+    SCORE_TRANSLATION = { 0 => 0, 1 => 15, 2 => 30, 3 => 40 }
+  
+    def initialize
+        @default_player = :server
+        @score = { server: 0, receiver: 0 }
+    end
+  
+    def score(player = :server) 
+        other = PLAYER_RELATION[player]
+        if @score[player] <= 3 and @score[other] <= 3
+            if @score[player] == @score[other] and @score[player] == 3
+                'DEUCE'
+            else
+                "#{SCORE_TRANSLATION[@score[:server]]}-#{SCORE_TRANSLATION[@score[:receiver]]}"
+            end
+        elsif @score[player] - @score[other] >= 2
+            "W-L"
+        elsif @score[other] - @score[player] >= 2
+            "L-W"
+        elsif @score[other] >= 3 and @score[player] >= 3
+            if @score[player] == @score[other]
+                "DEUCE"
+            elsif @score[player] > @score[other]
+                "El sacador tiene ventaja"
+            else
+                "El receptor tiene ventaja"
+            end
+        end
+    end
+  
+    def give_point_to(player)
+      @score[player] += 1
+    end  
+  end
+```
+
+Para empezar veamos nuestras variables constantes:
+   - `PLAYER_RELATION`: Un hash que define la relación entre el servidor y el receptor. 
+   - `SCORE_TRANSLATION`: Un hash que traduce los puntajes numéricos a la terminología utilizada en el tenis. 
+Luego tenemos los siguientes metodos:
+   - `initialize`: Un método que se llama al crear una nueva instancia de la clase. Establece el jugador por defecto como el servidor (`:server`) y crea un hash `@score` para rastrear los puntajes de ambos jugadores.
+
+   - `score(player = :server)`: Un método que devuelve el marcador actual del juego para el jugador especificado (o el jugador por defecto si no se proporciona uno). Realiza la lógica para determinar si el juego está en deuce, si hay ventaja para alguno de los jugadores, o si uno de los jugadores ha ganado el juego.
+
+   - `give_point_to(player)`: Un método que incrementa el puntaje del jugador especificado en un punto.
+
+   - El método `score` compara los puntajes y devuelve una cadena que representa el estado del juego. Aquí hay una descripción de los casos clave manejados:
+      - **Deuce:** Si ambos jugadores tienen 3 puntos (40-40), se muestra "DEUCE".
+      - **Ganar el juego:** Si un jugador tiene al menos 4 puntos y tiene al menos 2 puntos más que el oponente, se muestra "W-L" o "L-W" según el jugador que haya ganado.
+      - **Ventaja:** Si ambos jugadores tienen al menos 3 puntos y hay una diferencia de un punto, se muestra "El sacador tiene ventaja" o "El receptor tiene ventaja" según el jugador con la ventaja.
+
+Ahora completemos nuestras pruebas con el siguiente contenido, como se indica en la descripcion del codigo adjuntado en el examen
+
+```rb
+# PRUEBAS INICIALES
+  it "empieza con un marcador de 0-0" do
+    expect(@ts.score).to eq("0-0")
+  end
+
+  it "hace que el marcador sea 15-0 si el sacador gana un punto" do
+    @ts.give_point_to(:server)
+    expect(@ts.score).to eq("15-0")
+  end
+
+  it "hace que el marcador sea 0-15 si el receptor gana un punto" do
+    @ts.give_point_to(:receiver)
+    expect(@ts.score).to eq("0-15")
+  end
+
+  it "hace que el marcador sea 15-15 después de que ambos ganen un punto" do
+    @ts.give_point_to(:receiver)
+    @ts.give_point_to(:server)
+    expect(@ts.score).to eq("15-15")
+  end
+```
+Se hace uso de los metodos explicados anteriormente para simular los escenarios facilmente en pocas lineas de codigo, ahora ejecutaremos el rspec y veamos los resultados.
+
+![](img/l5.png)
+Como se esperaba ha superado todas las pruebas exitosamente. Por otro lado se menciona algunas pruebas adicionales que podemos hacer, ya que nuestra clase `TennisScorer` ha sido bien diseñada y preparada para cualquier posible escenario, asi que podriamos ejecutar todas las pruebas que han sido implementadas a continuacion.
+
+```rb
+ # PRUEBAS ADICIONALES
+  it "40-0 después de que el sacador gane tres puntos" do
+    3.times { @ts.give_point_to(:server) }
+    expect(@ts.score).to eq("40-0")
+  end
+  
+  it "W-L después de que el sacador gana cuatro puntos" do
+    3.times { @ts.give_point_to(:server) }
+    @ts.give_point_to(:server)
+    expect(@ts.score).to eq("W-L")
+  end
+
+  it "L-W después de que el receptor gane cuatro puntos" do
+    3.times { @ts.give_point_to(:receiver) }
+    expect(@ts.score).to eq("0-40")
+  end
+  
+  it "Deuce después de cada uno gana tres puntos" do
+    3.times { @ts.give_point_to(:server) }
+    3.times { @ts.give_point_to(:receiver) }
+    expect(@ts.score).to eq("DEUCE")
+  end
+  
+  it "El sacador con ventaja después de cada uno gana tres puntos y el sacador obtiene uno más" do
+    3.times { @ts.give_point_to(:server) }
+    3.times { @ts.give_point_to(:receiver) }
+    @ts.give_point_to(:server)
+    expect(@ts.score).to eq("El sacador tiene ventaja")
+  end
+```
+
+Veamos como nos va tras ejecutar el Rspec
+![](img/l6.png)
+Finalmente se han superado todas las pruebas correctamente!
