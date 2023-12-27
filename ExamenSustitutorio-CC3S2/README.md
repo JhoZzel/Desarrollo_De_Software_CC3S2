@@ -129,59 +129,65 @@ Mostramos los resultados a continuacion, junto con la consola donde se hacen las
 ![](img/H.png)
 
 ### Pregunta 02:
-Usamos el codigo proporcionado y creamos nuestro archivo `index.html`, vemos que se visualiza en el navegador, pero aun falta el codigo en JS.
+Trabajaremos sobre la carpeta `JavaScript/forms_validate`, donde tendremos nuestros archivos html, css y js. Primero usaremos el codigo proporcionado para nuestro archivo `index.html`, vemos que se visualiza en el navegador, pero aun falta el codigo en JS.
 ![](img/b.png)
-Para ello agregamos una etiqueta script dentro del index y agregamos el siguiente codigo
-```html
- <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const form = document.forms['myform'];
-      const emailInput = form.elements['email'];
-      const passwordInput = form.elements['password'];
-      const userNameInput = form.elements['userName'];
-      const emailError = document.getElementById('emailError');
-      const passwordError = document.getElementById('passwordError');
-      const userNameError = document.getElementById('userNameError');
-      let hasError = false;
+Para ello crearemos un nuevo archivo `script.js`agregamos el siguiente codigo
+```JS
+document.addEventListener('DOMContentLoaded', function initializeForm() {
+  const form = document.forms['myForm'];
+  const emailInput = form.elements['email'];
+  const passwordInput = form.elements['password'];
+  const userNameInput = form.elements['userName'];
+  const emailError = document.getElementById('emailError');
+  const passwordError = document.getElementById('passwordError');
+  const userNameError = document.getElementById('userNameError');
+  let hasError = false;
 
-      form.addEventListener('submit', function (event) {
-        event.preventDefault();
-        emailError.classList.add('hide');
-        passwordError.classList.add('hide');
-        userNameError.classList.add('hide');
-        hasError = false;
+  form.addEventListener('submit', function handleFormSubmission(event) {
+    event.preventDefault();
+    hideError(emailError);
+    hideError(passwordError);
+    hideError(userNameError);
+    hasError = false;
 
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(emailInput.value)) {
-          handleError(emailError, 'Invalid email address');
-        }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(emailInput.value)) {
+      showError(emailError, 'Invalid email address');
+    }
 
-        const passwordRegex = /^[a-zA-Z0-9]{3,8}$/;
-        if (!passwordRegex.test(passwordInput.value)) {
-          handleError(passwordError, 'Invalid password');
-        }
+    const passwordRegex = /^[a-zA-Z0-9]{3,8}$/;
+    if (!passwordRegex.test(passwordInput.value)) {
+      showError(passwordError, 'Invalid password');
+    }
 
+    if (!hasError) {
+      const formData = collectFormData(form);
+      console.log('Form data:', formData);
+    }
+  });
 
-        if (!hasError) {
-          const formData = {};
-          for (const input of form.elements) {
-            if (input.name) {
-              formData[input.name] = input.value;
-            }
-          }
-          console.log('Form data:', formData);
-        }
-      });
+  function showError(error, message) {
+    error.textContent = message;
+    error.classList.remove('hide');
+    hasError = true;
+  }
 
-      function handleError(errorElement, errorMessage) {
-        errorElement.textContent = errorMessage;
-        errorElement.classList.remove('hide');
-        hasError = true;
+  function hideError(error) {
+    error.classList.add('hide');
+  }
+
+  function collectFormData(form) {
+    const formData = {};
+    for (const input of form.elements) {
+      if (input.name) {
+        formData[input.name] = input.value;
       }
-    });
-  </script>
+    }
+    return formData;
+  }
+});
 ```
-Primero implemtamos `document.addEventListener('DOMContentLoaded', function () {...}`, luego se selecciona elementos del formulario, y se obtiene referencias a campos de entrada y mensajes de error mediante `document.forms`, `form.elements` y `document.getElementById`. Agregamos un listener con `form.addEventListener('submit', function (event) {...}`. Se previene el comportamiento predeterminado del formulario con `event.preventDefault()`.
+Primero implementamos `document.addEventListener('DOMContentLoaded', function () {...}` para asegurarnos de que el código dentro de la función se ejecute después de que el navegador ha completado la carga inicial del HTML , luego se selecciona elementos del formulario, y se obtiene referencias a campos de entrada y mensajes de error mediante `document.forms`, `form.elements` y `document.getElementById`. Agregamos un listener con `form.addEventListener('submit', function (event) {...}`. Se previene el comportamiento predeterminado del formulario con `event.preventDefault()`.
 Ahora segun como se menciona en el enunciado validamos el correo electrónico y la contraseña, para ello se utiliza expresiones regulares con `test()` para verificar el formato del correo y la contraseña. Manejamos errores con la función `handleError` actualiza el contenido y visibilidad de mensajes de error. Finalmente se recopila datos del formulario y se crea un objeto `formData` con los valores de los campos del formulario. Luego se imprime los datos en la consola con `console.log('Form data:', formData)`.
 
 Vamos a mostrar los resultados en las siguientes capturas, primero vamos a ingresar datos incorrectos con el fin de que el validate este funcionando correctamente.
