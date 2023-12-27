@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curso CC-3S2</title>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+    .hide {
+      display: none;
+    }
+    .error {
+      color: red;
+      font-size: 0.8em;
+      font-style: italic;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input {
+      border: 1px solid #ddd;
+      width: 400px;
+      display: block;
+      font-size: 1.5em;
+      margin-bottom: 10px;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+  <form name="myform">
+    <label for="email">Email:</label>
+    <input type="text" name="email" id="email">
+    <span class="error hide" id="emailError"></span>
+    <br>
+
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password">
+    <span class="error hide" id="passwordError"></span>
+    <br>
+
+    <label for="userName">User Nombre:</label>
+    <input type="text" name="userName" id="userName">
+    <span class="error hide" id="userNameError"></span>
+    <br>
+
+    <input type="submit" value="Sign Up">
+  </form>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const form = document.forms['myform'];
+      const emailInput = form.elements['email'];
+      const passwordInput = form.elements['password'];
+      const userNameInput = form.elements['userName'];
+      const emailError = document.getElementById('emailError');
+      const passwordError = document.getElementById('passwordError');
+      const userNameError = document.getElementById('userNameError');
+      let hasError = false;
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        emailError.classList.add('hide');
+        passwordError.classList.add('hide');
+        userNameError.classList.add('hide');
+        hasError = false;
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(emailInput.value)) {
+          handleError(emailError, 'Invalid email address');
+        }
+
+        const passwordRegex = /^[a-zA-Z0-9]{3,8}$/;
+        if (!passwordRegex.test(passwordInput.value)) {
+          handleError(passwordError, 'Invalid password');
+        }
+
+
+        if (!hasError) {
+          const formData = {};
+          for (const input of form.elements) {
+            if (input.name) {
+              formData[input.name] = input.value;
+            }
+          }
+          console.log('Form data:', formData);
+        }
+      });
+
+      function handleError(errorElement, errorMessage) {
+        errorElement.textContent = errorMessage;
+        errorElement.classList.remove('hide');
+        hasError = true;
+      }
+    });
+  </script>
+</body>
+</html>

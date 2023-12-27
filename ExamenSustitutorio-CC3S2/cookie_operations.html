@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cookie Operations</title>
+  <script>
+    // Función para leer el valor de una cookie por su nombre
+    function getCookie(name) {
+      const cookies = document.cookie.split(';');
+      for (const cookie of cookies) {
+        const [cookieName, cookieValue] = cookie.trim().split('=');
+        if (cookieName === name) {
+          return decodeURIComponent(cookieValue);
+        }
+      }
+      return null;
+    }
+
+    // Función para crear una nueva cookie
+    function setCookie(name, value, days) {
+      const expirationDate = new Date();
+      expirationDate.setDate(expirationDate.getDate() + days);
+      const cookieValue = encodeURIComponent(value) + '; expires=' + expirationDate.toUTCString();
+      document.cookie = name + '=' + cookieValue;
+    }
+
+    // Función para eliminar una cookie por su nombre
+    function deleteCookie(name) {
+      document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    }
+
+    // Configura la página web
+    window.onload = function() {
+      // Genera el valor de document.cookie que debería estar en blanco
+      console.log('Valor actual de document.cookie:', document.cookie);
+
+      // Intenta eliminar una cookie por su nombre
+      const cookieNameToDelete = 'miCookie';
+      console.log('Intentando eliminar la cookie', cookieNameToDelete);
+      deleteCookie(cookieNameToDelete);
+
+      // Verifica si la cookie fue eliminada
+      console.log('Valor después de intentar eliminar la cookie:', document.cookie);
+    };
+  </script>
+</head>
+<body>
+  <h1>Cookie Operations</h1>
+</body>
+</html>
