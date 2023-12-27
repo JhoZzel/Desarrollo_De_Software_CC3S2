@@ -250,7 +250,9 @@ class TennisScorer
 Para empezar veamos nuestras variables constantes:
    - `PLAYER_RELATION`: Un hash que define la relación entre el servidor y el receptor. 
    - `SCORE_TRANSLATION`: Un hash que traduce los puntajes numéricos a la terminología utilizada en el tenis. 
+
 Luego tenemos los siguientes metodos:
+
    - `initialize`: Un método que se llama al crear una nueva instancia de la clase. Establece el jugador por defecto como el servidor (`:server`) y crea un hash `@score` para rastrear los puntajes de ambos jugadores.
 
    - `score(player = :server)`: Un método que devuelve el marcador actual del juego para el jugador especificado (o el jugador por defecto si no se proporciona uno). Realiza la lógica para determinar si el juego está en deuce, si hay ventaja para alguno de los jugadores, o si uno de los jugadores ha ganado el juego.
@@ -324,5 +326,7 @@ Como se esperaba ha superado todas las pruebas exitosamente. Por otro lado se me
 ```
 
 Veamos como nos va tras ejecutar el Rspec
+
 ![](img/l6.png)
+
 Finalmente se han superado todas las pruebas correctamente!
