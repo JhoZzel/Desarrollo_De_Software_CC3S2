@@ -254,7 +254,7 @@ Vemos que ahora si no se ha mostrado ningun error y la consola imprime los resul
 
 ### Pregunta 03:
 
-----
+
 
 ### Pregunta 04:
 Para esta pregunta vamos a agregar el metodo `name_with_rating` en nuestra clase `Movie` 
@@ -293,7 +293,7 @@ end
 2. **¿Qué hacen los siguientes códigos entregados y dónde se ubican? ¿Por qué hay que tener cuidado en su uso?**
    - Se debe de tener cuidado ya que puede depender excesivamente de objetos reales en las pruebas. Recordemos que en las pruebas unitarias, se prefiere el uso de objetos de doble (mocks, stubs) para aislar la funcionalidad y centrarse en probar la lógica específica de la unidad bajo prueba. Sin embargo, como se indica en el enunciado, en algunas situaciones, puede tener sentido utilizar objetos reales cuando se prueba métodos de instancia específicos de la clase.
 
-  
+
 ## Parte 4: Pruebas y Rspec (3 puntos)
 Para esta parte se nos solicita realizar pruebas sobre el sistema de puntuación de un juego de tennis, para ello vamos a trabajar sobre un nuevo repositorio llamado `tennis_test`, y vamos a instalarle la gema de Rspec y hacer un `rspec init` como ya es habitual, creamos la carpeta `/spec/my_tests` y agregaremos la clase `TennisScorer` que vamos a usar donde estará la lógica del sistema y por otro lado las pruebas que haremos que serán las siguientes que se mencionan:
 
